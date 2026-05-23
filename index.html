@@ -28,29 +28,22 @@
     a { color: inherit; text-decoration: none; }
 
     nav {
-      position: sticky;
-      top: 0;
+      position: sticky; top: 0;
       background: rgba(249,249,247,0.92);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
-      z-index: 100;
-      padding: 0 2rem;
+      z-index: 100; padding: 0 2rem;
     }
     .nav-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
+      max-width: 960px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; height: 56px;
     }
     .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { font-size: 14px; color: var(--muted); transition: color 0.15s; }
     .nav-links a:hover { color: var(--text); }
 
-    section { max-width: 900px; margin: 0 auto; padding: 5rem 2rem; }
-
+    section { max-width: 960px; margin: 0 auto; padding: 5rem 2rem; }
     .hero { padding-top: 7rem; padding-bottom: 5rem; }
     .hero-label { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 1.25rem; }
     .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.5rem; }
@@ -63,100 +56,101 @@
     .hero-cta svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
     hr { border: none; border-top: 1px solid var(--border); }
-    .section-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 2rem; }
+    .section-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 1.75rem; }
 
-    /* CATEGORY TABS */
-    .cat-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 2.5rem;
-    }
+    /* TABS */
+    .cat-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2.75rem; }
     .cat-tab {
-      font-size: 13px;
-      font-weight: 500;
-      padding: 6px 16px;
-      border-radius: 100px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.15s;
-      user-select: none;
+      font-size: 13px; font-weight: 500; padding: 6px 16px;
+      border-radius: 100px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--muted);
+      cursor: pointer; transition: all 0.15s; user-select: none;
     }
     .cat-tab:hover { border-color: #bbb; color: var(--text); }
     .cat-tab.active { background: var(--text); color: #fff; border-color: var(--text); }
 
-    /* CATEGORY SECTIONS */
     .cat-section { display: none; }
     .cat-section.visible { display: block; }
 
-    .cat-header {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      margin-bottom: 1.25rem;
-    }
-    .cat-title {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--text);
-    }
-    .cat-desc {
-      font-size: 14px;
-      color: var(--faint);
-    }
+    /* CATEGORY HEADER */
+    .cat-header { margin-bottom: 1.5rem; }
+    .cat-title { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); display: block; margin-bottom: 4px; }
+    .cat-desc { font-size: 14px; color: var(--faint); display: block; }
 
+    /* GRIDS */
     .work-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
-      margin-bottom: 3rem;
+      margin-bottom: 3.5rem;
     }
-    .work-card {
+    /* Featured card — spans 2 cols */
+    .work-card.featured { grid-column: span 2; }
+
+    /* Set — 3 cards visually grouped */
+    .card-set {
+      grid-column: 1 / -1;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
+      border-radius: 14px;
+      padding: 1.25rem;
+      margin-bottom: 0;
+    }
+    .card-set-label {
+      font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--faint); margin-bottom: 1rem;
+    }
+    .card-set-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .card-set-item {}
+    .card-set-item .video-thumb { border-radius: 8px; overflow: hidden; }
+
+    .work-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
       transition: transform 0.18s, box-shadow 0.18s;
     }
     .work-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+
     .video-thumb {
-      position: relative;
-      width: 100%;
-      padding-bottom: 56.25%;
-      background: #1a1a1a;
-      overflow: hidden;
+      position: relative; width: 100%; padding-bottom: 56.25%;
+      background: #111; overflow: hidden;
     }
-    .video-thumb iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+    .video-thumb iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
     .video-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
       background: #111;
     }
     .video-placeholder .play-icon {
       width: 44px; height: 44px; border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.25);
+      border: 1.5px solid rgba(255,255,255,0.2);
       display: flex; align-items: center; justify-content: center;
     }
-    .video-placeholder .play-icon svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.6); margin-left: 2px; }
-    .video-placeholder p { font-size: 12px; color: rgba(255,255,255,0.3); letter-spacing: 0.04em; }
-    .card-body { padding: 1rem 1.1rem; }
-    .card-type { font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--faint); margin-bottom: 4px; }
-    .card-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .video-placeholder .play-icon svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.5); margin-left: 2px; }
+    .video-placeholder p { font-size: 11px; color: rgba(255,255,255,0.25); }
+
+    .card-body { padding: 0.9rem 1rem; }
+    .card-type { font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--faint); margin-bottom: 3px; }
+    .card-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
     .card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* VLOG SET — special layout: intro + reel small, full vlog wide */
+    .vlog-layout {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.25rem;
+    }
+    .vlog-main { grid-column: 1 / 3; }
+    .vlog-cuts { grid-column: 3 / 4; display: flex; flex-direction: column; gap: 1rem; }
+    .vlog-cuts .work-card { flex: 1; }
+    .vlog-cuts .video-thumb { padding-bottom: 60%; }
 
     /* ABOUT */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
@@ -179,15 +173,20 @@
     .contact-inner h2 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
     .contact-inner p { font-size: 16px; color: var(--muted); margin-bottom: 2rem; }
     .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-    .contact-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); transition: background 0.15s, border-color 0.15s; }
+    .contact-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); transition: background 0.15s; }
     .contact-btn:hover { background: #f0f0ee; border-color: #ccc; }
     .contact-btn.primary { background: var(--text); color: #fff; border-color: var(--text); }
-    .contact-btn.primary:hover { opacity: 0.82; background: var(--text); }
+    .contact-btn.primary:hover { opacity: 0.82; }
     .contact-btn svg { width: 16px; height: 16px; }
 
     footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 13px; color: var(--faint); }
 
-    @media (max-width: 640px) {
+    @media (max-width: 720px) {
+      .work-grid { grid-template-columns: 1fr; }
+      .work-card.featured { grid-column: span 1; }
+      .card-set-grid { grid-template-columns: 1fr; }
+      .vlog-layout { grid-template-columns: 1fr; }
+      .vlog-main, .vlog-cuts { grid-column: auto; }
       .about-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       section { padding: 3.5rem 1.25rem; }
@@ -219,9 +218,9 @@
     <span class="tag">Adobe Premiere Pro</span>
     <span class="tag">Short-form Reels</span>
     <span class="tag">Cinematic Edits</span>
+    <span class="tag">Colour Grading</span>
+    <span class="tag">After Effects</span>
     <span class="tag">Vlogs</span>
-    <span class="tag">Instagram &amp; YouTube</span>
-    <span class="tag">CapCut</span>
   </div>
   <a href="#work" class="hero-cta">
     View my work
@@ -231,220 +230,373 @@
 
 <hr />
 
-<!-- WORK -->
+<!-- ===================== WORK ===================== -->
 <section id="work">
   <p class="section-label">Selected Work</p>
 
-  <!-- TABS — add/remove tabs here to match your categories -->
   <div class="cat-tabs">
     <button class="cat-tab active" onclick="showCat('all', this)">All</button>
     <button class="cat-tab" onclick="showCat('motivational', this)">Motivational Edits</button>
     <button class="cat-tab" onclick="showCat('reels', this)">Short-form Reels</button>
     <button class="cat-tab" onclick="showCat('music', this)">Music Edits</button>
-    <button class="cat-tab" onclick="showCat('vlog', this)">Vlogs</button>
+    <button class="cat-tab" onclick="showCat('vlog', this)">Vlog</button>
     <button class="cat-tab" onclick="showCat('colorgrade', this)">Colour Grading</button>
-    <button class="cat-tab" onclick="showCat('timeline', this)">Editing Timelines</button>
+    <button class="cat-tab" onclick="showCat('ae', this)">After Effects</button>
+    <button class="cat-tab" onclick="showCat('timeline', this)">Timelines</button>
   </div>
 
-  <!-- ALL — shows everything, displayed by default -->
+  <!-- ====== ALL TAB — best 6-7, one from each category ====== -->
   <div class="cat-section visible" id="cat-all">
     <div class="work-grid">
 
-      <!-- === ADD YOUR VIDEOS HERE FOR "ALL" VIEW === -->
-      <!-- Copy a card block, paste it, change the video ID, title, desc -->
-
-      <div class="work-card">
+      <!-- 1. Best motivational edit — FEATURED (wider) -->
+      <div class="work-card featured">
         <div class="video-thumb">
-          <!-- Replace VIDEO_ID below with your YouTube video ID -->
-          <div class="video-placeholder">
-            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-            <p>Add YouTube video ID</p>
-          </div>
+          <!-- REPLACE: your best motivational edit video ID -->
+          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen loading="lazy"></iframe> -->
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Motivational Edit</p></div>
         </div>
         <div class="card-body">
           <p class="card-type">Motivational Edit</p>
-          <p class="card-title">Your Video Title</p>
-          <p class="card-desc">Short description of what this edit does.</p>
+          <p class="card-title">Your Best Motivational Edit</p>
+          <p class="card-desc">Your strongest piece. Pacing, music sync, emotional build. ~3k views on Instagram.</p>
         </div>
       </div>
 
+      <!-- 2. Colour grading demo -->
       <div class="work-card">
         <div class="video-thumb">
-          <div class="video-placeholder">
-            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-            <p>Add YouTube video ID</p>
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="card-type">Short-form Reel</p>
-          <p class="card-title">Your Video Title</p>
-          <p class="card-desc">Short description of what this edit does.</p>
-        </div>
-      </div>
-
-      <div class="work-card">
-        <div class="video-thumb">
-          <div class="video-placeholder">
-            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-            <p>Add YouTube video ID</p>
-          </div>
+          <!-- REPLACE: colour grading demo video ID -->
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Colour Grading</p></div>
         </div>
         <div class="card-body">
           <p class="card-type">Colour Grading</p>
-          <p class="card-title">Your Video Title</p>
-          <p class="card-desc">Short description of what this edit does.</p>
+          <p class="card-title">Colour Grade Demo</p>
+          <p class="card-desc">Raw to graded — masking technique with line wipe transition.</p>
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- MOTIVATIONAL EDITS -->
-  <div class="cat-section" id="cat-motivational">
-    <div class="cat-header">
-      <span class="cat-title">Motivational Edits</span>
-      <span class="cat-desc">Film-based cinematic edits built around emotion and pacing</span>
-    </div>
-    <div class="work-grid">
-
+      <!-- 3. Festival reel (short music cut) -->
       <div class="work-card">
         <div class="video-thumb">
-          <!-- PASTE YOUR YOUTUBE IFRAME HERE -->
-          <!-- <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen loading="lazy"></iframe> -->
-          <div class="video-placeholder">
-            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-            <p>Add YouTube video ID</p>
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="card-type">Motivational Edit</p>
-          <p class="card-title">Your Video Title</p>
-          <p class="card-desc">Short description.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- SHORT-FORM REELS -->
-  <div class="cat-section" id="cat-reels">
-    <div class="cat-header">
-      <span class="cat-title">Short-form Reels</span>
-      <span class="cat-desc">Hook-driven vertical content for Instagram and YouTube Shorts</span>
-    </div>
-    <div class="work-grid">
-
-      <div class="work-card">
-        <div class="video-thumb">
-          <div class="video-placeholder">
-            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-            <p>Add YouTube video ID</p>
-          </div>
+          <!-- REPLACE: festival reel / music cut video ID -->
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Festival Reel</p></div>
         </div>
         <div class="card-body">
           <p class="card-type">Short-form Reel</p>
-          <p class="card-title">Your Video Title</p>
-          <p class="card-desc">Short description.</p>
+          <p class="card-title">Festival Reel</p>
+          <p class="card-desc">Music-driven short cut from festival footage. Sync, transitions, energy.</p>
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- MUSIC EDITS -->
-  <div class="cat-section" id="cat-music">
-    <div class="cat-header">
-      <span class="cat-title">Music Edits</span>
-      <span class="cat-desc">Edits built around music — sync, rhythm, and feel</span>
-    </div>
-    <div class="work-grid">
-
+      <!-- 4. After Effects VFX -->
       <div class="work-card">
         <div class="video-thumb">
-          <div class="video-placeholder">
-            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-            <p>Add YouTube video ID</p>
-          </div>
+          <!-- REPLACE: after effects / vfx video ID -->
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>After Effects</p></div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">After Effects</p>
+          <p class="card-title">VFX / Motion Edit</p>
+          <p class="card-desc">Camera movement, logo masking, light VFX work in After Effects.</p>
+        </div>
+      </div>
+
+      <!-- 5. Music edit -->
+      <div class="work-card">
+        <div class="video-thumb">
+          <!-- REPLACE: music edit video ID -->
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Music Edit</p></div>
         </div>
         <div class="card-body">
           <p class="card-type">Music Edit</p>
-          <p class="card-title">Your Video Title</p>
-          <p class="card-desc">Short description.</p>
+          <p class="card-title">Music Based Edit</p>
+          <p class="card-desc">Edit built entirely around the track — rhythm, cuts, and feel.</p>
+        </div>
+      </div>
+
+      <!-- 6. Timeline proof -->
+      <div class="work-card">
+        <div class="video-thumb">
+          <!-- REPLACE: timeline recording video ID -->
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Editing Timeline</p></div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Process</p>
+          <p class="card-title">Premiere Pro Timeline</p>
+          <p class="card-desc">Raw Premiere Pro timeline — shows editing structure, layering, and workflow.</p>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- VLOGS -->
-  <div class="cat-section" id="cat-vlog">
+  <!-- ====== MOTIVATIONAL EDITS ====== -->
+  <div class="cat-section" id="cat-motivational">
     <div class="cat-header">
-      <span class="cat-title">Vlogs</span>
-      <span class="cat-desc">Long-form storytelling — shoot to export</span>
+      <span class="cat-title">Motivational Edits</span>
+      <span class="cat-desc">Film-clip edits built around emotion, pacing, and music sync</span>
+    </div>
+    <div class="work-grid">
+      <!-- Add all motivational edits here, best first -->
+      <!-- Copy this card block and paste below for each video -->
+
+      <div class="work-card featured">
+        <div class="video-thumb">
+          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen loading="lazy"></iframe> -->
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Motivational Edit</p>
+          <p class="card-title">Edit Title</p>
+          <p class="card-desc">Description — what film, what mood, what technique.</p>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Motivational Edit</p>
+          <p class="card-title">Edit Title</p>
+          <p class="card-desc">Description.</p>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Motivational Edit</p>
+          <p class="card-title">Edit Title</p>
+          <p class="card-desc">Description.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ====== SHORT-FORM REELS ====== -->
+  <div class="cat-section" id="cat-reels">
+    <div class="cat-header">
+      <span class="cat-title">Short-form Reels</span>
+      <span class="cat-desc">Hook-driven vertical content built for Instagram</span>
     </div>
     <div class="work-grid">
 
       <div class="work-card">
         <div class="video-thumb">
-          <div class="video-placeholder">
-            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-            <p>Add YouTube video ID</p>
-          </div>
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
         </div>
         <div class="card-body">
-          <p class="card-type">Vlog</p>
-          <p class="card-title">Your Video Title</p>
-          <p class="card-desc">Short description.</p>
+          <p class="card-type">Short-form Reel</p>
+          <p class="card-title">Reel Title</p>
+          <p class="card-desc">Description.</p>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- COLOUR GRADING -->
+  <!-- ====== MUSIC EDITS ====== -->
+  <div class="cat-section" id="cat-music">
+    <div class="cat-header">
+      <span class="cat-title">Music Edits</span>
+      <span class="cat-desc">Edits built around a track — sync, rhythm, and feel first</span>
+    </div>
+    <div class="work-grid">
+
+      <div class="work-card featured">
+        <div class="video-thumb">
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Music Edit</p>
+          <p class="card-title">Edit Title</p>
+          <p class="card-desc">Description.</p>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Music Edit</p>
+          <p class="card-title">Edit Title</p>
+          <p class="card-desc">Description.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ====== VLOG ====== -->
+  <div class="cat-section" id="cat-vlog">
+    <div class="cat-header">
+      <span class="cat-title">Vlog</span>
+      <span class="cat-desc">Long-form storytelling — full shoot to export. Festival vlog with intro and music cut.</span>
+    </div>
+    <div class="work-grid">
+
+      <!-- Special vlog layout: full vlog wide, intro + reel stacked on the right -->
+      <div class="vlog-layout">
+
+        <!-- Full 8-min vlog — takes 2/3 width -->
+        <div class="work-card vlog-main">
+          <div class="video-thumb">
+            <!-- REPLACE: full 8 min vlog video ID -->
+            <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen loading="lazy"></iframe> -->
+            <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Full Vlog</p></div>
+          </div>
+          <div class="card-body">
+            <p class="card-type">Full-length Vlog · 8 min</p>
+            <p class="card-title">Festival Vlog</p>
+            <p class="card-desc">Complete vlog — shoot to export. Colour correction, sound design, pacing, subtitles. Contains the intro and music sequence as part of the full edit.</p>
+          </div>
+        </div>
+
+        <!-- Intro + Reel stacked on the right -->
+        <div class="vlog-cuts">
+
+          <div class="work-card">
+            <div class="video-thumb">
+              <!-- REPLACE: intro cut video ID -->
+              <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Intro Cut</p></div>
+            </div>
+            <div class="card-body">
+              <p class="card-type">Intro Cut</p>
+              <p class="card-title">Festival Intro</p>
+              <p class="card-desc">Standalone intro sequence cut from the vlog.</p>
+            </div>
+          </div>
+
+          <div class="work-card">
+            <div class="video-thumb">
+              <!-- REPLACE: music reel cut video ID -->
+              <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Music Reel Cut</p></div>
+            </div>
+            <div class="card-body">
+              <p class="card-type">Music Cut</p>
+              <p class="card-title">Festival Reel</p>
+              <p class="card-desc">Music-driven short cut from the same footage. Sync and energy.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ====== COLOUR GRADING ====== -->
   <div class="cat-section" id="cat-colorgrade">
     <div class="cat-header">
       <span class="cat-title">Colour Grading</span>
-      <span class="cat-desc">Before/after grade demos and colour work</span>
+      <span class="cat-desc">Raw to graded — masking, line wipe transitions, and before/after demos</span>
+    </div>
+
+    <!-- The 3 demos shown as a set -->
+    <div class="work-grid">
+      <div class="card-set">
+        <p class="card-set-label">Colour Grade Demo Series — 3 pieces</p>
+        <div class="card-set-grid">
+
+          <div class="card-set-item">
+            <div class="video-thumb" style="border-radius:8px;">
+              <!-- REPLACE: colour grade demo 1 -->
+              <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Demo 1</p></div>
+            </div>
+            <div class="card-body" style="padding: 0.75rem 0.25rem 0;">
+              <p class="card-type">Colour Grade</p>
+              <p class="card-title">Grade Demo 01</p>
+              <p class="card-desc">Line wipe + masking technique. Raw to final.</p>
+            </div>
+          </div>
+
+          <div class="card-set-item">
+            <div class="video-thumb" style="border-radius:8px;">
+              <!-- REPLACE: colour grade demo 2 -->
+              <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Demo 2</p></div>
+            </div>
+            <div class="card-body" style="padding: 0.75rem 0.25rem 0;">
+              <p class="card-type">Colour Grade</p>
+              <p class="card-title">Grade Demo 02</p>
+              <p class="card-desc">Colour transformation — raw footage to graded output.</p>
+            </div>
+          </div>
+
+          <div class="card-set-item">
+            <div class="video-thumb" style="border-radius:8px;">
+              <!-- REPLACE: colour grade demo 3 -->
+              <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Demo 3</p></div>
+            </div>
+            <div class="card-body" style="padding: 0.75rem 0.25rem 0;">
+              <p class="card-type">Colour Grade</p>
+              <p class="card-title">Grade Demo 03</p>
+              <p class="card-desc">Colour transformation — raw footage to graded output.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== AFTER EFFECTS ====== -->
+  <div class="cat-section" id="cat-ae">
+    <div class="cat-header">
+      <span class="cat-title">After Effects</span>
+      <span class="cat-desc">Light VFX, camera movement, logo masking — early AE work</span>
     </div>
     <div class="work-grid">
 
-      <div class="work-card">
+      <div class="work-card featured">
         <div class="video-thumb">
-          <div class="video-placeholder">
-            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-            <p>Add YouTube video ID</p>
-          </div>
+          <!-- REPLACE: AE / VFX video ID -->
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>After Effects</p></div>
         </div>
         <div class="card-body">
-          <p class="card-type">Colour Grading</p>
-          <p class="card-title">Your Video Title</p>
-          <p class="card-desc">Short description.</p>
+          <p class="card-type">After Effects · VFX</p>
+          <p class="card-title">Motion &amp; VFX Edit</p>
+          <p class="card-desc">Camera movement, logo masking, and light VFX. Early After Effects work — line transition revealing colour grade.</p>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- EDITING TIMELINES -->
+  <!-- ====== TIMELINES ====== -->
   <div class="cat-section" id="cat-timeline">
     <div class="cat-header">
       <span class="cat-title">Editing Timelines</span>
-      <span class="cat-desc">Premiere Pro timeline walkthroughs and process breakdowns</span>
+      <span class="cat-desc">Screen recordings of Premiere Pro timelines — proof of process and workflow</span>
     </div>
     <div class="work-grid">
 
+      <!-- Add all timeline recordings here -->
       <div class="work-card">
         <div class="video-thumb">
-          <div class="video-placeholder">
-            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-            <p>Add YouTube video ID</p>
-          </div>
+          <!-- REPLACE: timeline recording video ID -->
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
         </div>
         <div class="card-body">
-          <p class="card-type">Editing Timeline</p>
-          <p class="card-title">Your Video Title</p>
-          <p class="card-desc">Short description.</p>
+          <p class="card-type">Process · Premiere Pro</p>
+          <p class="card-title">Timeline Recording</p>
+          <p class="card-desc">Full Premiere Pro timeline — track layering, clip structure, and editing workflow.</p>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Process · Premiere Pro</p>
+          <p class="card-title">Timeline Recording</p>
+          <p class="card-desc">Premiere Pro timeline walkthrough.</p>
         </div>
       </div>
 
@@ -461,14 +613,14 @@
   <div class="about-grid">
     <div class="about-text">
       <p>I'm a self-taught video editor based in Delhi, with a background in creating motivational and cinematic edits — the kind that make people stop scrolling.</p>
-      <p>I got into editing through a genuine love of film and storytelling. Over time that turned into a hands-on practice across reels, vlogs, and content for social media — learning through doing rather than courses.</p>
-      <p>I'm comfortable working to a brief, taking feedback quickly, and delivering clean work on time. Currently open to internships and freelance video editing work.</p>
+      <p>I got into editing through a genuine love of film and storytelling. Over time that turned into hands-on practice across reels, vlogs, colour grading, and social media content — learning through doing rather than courses.</p>
+      <p>Currently open to on-site internships and editing roles in Delhi NCR. Comfortable working to a brief, taking feedback fast, and delivering clean work on time.</p>
     </div>
     <div class="about-facts">
       <div class="fact"><p class="fact-label">Primary Tool</p><p class="fact-value">Adobe Premiere Pro</p></div>
-      <div class="fact"><p class="fact-label">Also use</p><p class="fact-value">CapCut</p></div>
-      <div class="fact"><p class="fact-label">Content types</p><p class="fact-value">Reels · Vlogs · Cinematic Edits</p></div>
-      <div class="fact"><p class="fact-label">Platforms</p><p class="fact-value">Instagram · YouTube</p></div>
+      <div class="fact"><p class="fact-label">Also use</p><p class="fact-value">After Effects · CapCut</p></div>
+      <div class="fact"><p class="fact-label">Specialities</p><p class="fact-value">Reels · Vlogs · Cinematic Edits · Colour Grading</p></div>
+      <div class="fact"><p class="fact-label">Available for</p><p class="fact-value">On-site Delhi NCR · Remote</p></div>
       <div class="fact"><p class="fact-label">Based in</p><p class="fact-value">Delhi, India</p></div>
     </div>
   </div>
@@ -493,18 +645,18 @@
       <p class="skill-category">Post-production</p>
       <div class="skill-list">
         <span class="skill-item">Subtitles &amp; captions</span>
-        <span class="skill-item">Basic motion graphics</span>
+        <span class="skill-item">Light VFX (After Effects)</span>
+        <span class="skill-item">Logo masking</span>
         <span class="skill-item">Export optimisation</span>
-        <span class="skill-item">File &amp; project management</span>
       </div>
     </div>
     <div class="skill-card">
       <p class="skill-category">Formats</p>
       <div class="skill-list">
         <span class="skill-item">Short-form vertical (Reels)</span>
-        <span class="skill-item">Long-form horizontal</span>
-        <span class="skill-item">Cinematic / creative edits</span>
-        <span class="skill-item">Vlog</span>
+        <span class="skill-item">Long-form vlog</span>
+        <span class="skill-item">Cinematic / motivational edits</span>
+        <span class="skill-item">Music-driven edits</span>
       </div>
     </div>
     <div class="skill-card">
@@ -512,7 +664,7 @@
       <div class="skill-list">
         <span class="skill-item">Brief-to-delivery</span>
         <span class="skill-item">Revision turnaround</span>
-        <span class="skill-item">Brand guideline compliance</span>
+        <span class="skill-item">Project organisation</span>
         <span class="skill-item">Feedback integration</span>
       </div>
     </div>
@@ -525,14 +677,14 @@
 <section id="contact">
   <div class="contact-inner">
     <h2>Let's work together</h2>
-    <p>Open to internships, freelance projects, and long-term collaborations. Based in Delhi — available for hybrid and remote work.</p>
+    <p>Open to on-site internships and editing roles in Delhi NCR. Also available for freelance and remote work.</p>
     <div class="contact-links">
       <a href="mailto:sumitkumar854468@gmail.com" class="contact-btn primary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         Email me
       </a>
       <a href="https://instagram.com/bettercallsmyt" target="_blank" rel="noopener" class="contact-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap: round; stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         Instagram
       </a>
     </div>
