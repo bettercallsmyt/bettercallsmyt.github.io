@@ -15,7 +15,6 @@
       --muted: #666666;
       --faint: #999999;
       --border: #e5e5e2;
-      --accent: #1a1a1a;
     }
 
     body {
@@ -28,7 +27,6 @@
 
     a { color: inherit; text-decoration: none; }
 
-    /* NAV */
     nav {
       position: sticky;
       top: 0;
@@ -46,105 +44,75 @@
       justify-content: space-between;
       height: 56px;
     }
-    .nav-logo {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 14px;
-      color: var(--muted);
-      transition: color 0.15s;
-    }
+    .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--muted); transition: color 0.15s; }
     .nav-links a:hover { color: var(--text); }
 
-    /* SECTIONS */
-    section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-    }
+    section { max-width: 900px; margin: 0 auto; padding: 5rem 2rem; }
 
-    /* HERO */
-    .hero {
-      padding-top: 7rem;
-      padding-bottom: 5rem;
-    }
-    .hero-label {
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--faint);
-      margin-bottom: 1.25rem;
-    }
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-    }
-    .hero h1 span {
-      color: var(--faint);
-    }
-    .hero-desc {
-      font-size: 17px;
-      color: var(--muted);
-      max-width: 540px;
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
-    }
-    .hero-tags {
+    .hero { padding-top: 7rem; padding-bottom: 5rem; }
+    .hero-label { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 1.25rem; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.5rem; }
+    .hero h1 span { color: var(--faint); }
+    .hero-desc { font-size: 17px; color: var(--muted); max-width: 540px; line-height: 1.7; margin-bottom: 2.5rem; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2.5rem; }
+    .tag { font-size: 13px; padding: 5px 12px; border: 1px solid var(--border); border-radius: 100px; color: var(--muted); background: var(--surface); }
+    .hero-cta { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; background: var(--text); color: #fff; padding: 10px 20px; border-radius: 8px; transition: opacity 0.15s; }
+    .hero-cta:hover { opacity: 0.82; }
+    .hero-cta svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    hr { border: none; border-top: 1px solid var(--border); }
+    .section-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 2rem; }
+
+    /* CATEGORY TABS */
+    .cat-tabs {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       margin-bottom: 2.5rem;
     }
-    .tag {
+    .cat-tab {
       font-size: 13px;
-      padding: 5px 12px;
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      color: var(--muted);
-      background: var(--surface);
-    }
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
       font-weight: 500;
-      background: var(--text);
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 8px;
-      transition: opacity 0.15s;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
     }
-    .hero-cta:hover { opacity: 0.82; }
-    .hero-cta svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .cat-tab:hover { border-color: #bbb; color: var(--text); }
+    .cat-tab.active { background: var(--text); color: #fff; border-color: var(--text); }
 
-    /* DIVIDER */
-    hr { border: none; border-top: 1px solid var(--border); }
+    /* CATEGORY SECTIONS */
+    .cat-section { display: none; }
+    .cat-section.visible { display: block; }
 
-    /* SECTION LABEL */
-    .section-label {
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .cat-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 1.25rem;
+    }
+    .cat-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    .cat-desc {
+      font-size: 14px;
       color: var(--faint);
-      margin-bottom: 2rem;
     }
 
-    /* WORK GRID */
     .work-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 1.25rem;
+      margin-bottom: 3rem;
     }
     .work-card {
       background: var(--surface);
@@ -153,10 +121,7 @@
       overflow: hidden;
       transition: transform 0.18s, box-shadow 0.18s;
     }
-    .work-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
-    }
+    .work-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
     .video-thumb {
       position: relative;
       width: 100%;
@@ -182,169 +147,46 @@
       background: #111;
     }
     .video-placeholder .play-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
+      width: 44px; height: 44px; border-radius: 50%;
       border: 1.5px solid rgba(255,255,255,0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
     }
-    .video-placeholder .play-icon svg {
-      width: 18px;
-      height: 18px;
-      fill: rgba(255,255,255,0.6);
-      margin-left: 2px;
-    }
-    .video-placeholder p {
-      font-size: 12px;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 0.04em;
-    }
-    .card-body {
-      padding: 1rem 1.1rem;
-    }
-    .card-type {
-      font-size: 11px;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--faint);
-      margin-bottom: 4px;
-    }
-    .card-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-    .card-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
+    .video-placeholder .play-icon svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.6); margin-left: 2px; }
+    .video-placeholder p { font-size: 12px; color: rgba(255,255,255,0.3); letter-spacing: 0.04em; }
+    .card-body { padding: 1rem 1.1rem; }
+    .card-type { font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--faint); margin-bottom: 4px; }
+    .card-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
     /* ABOUT */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-    .about-text p {
-      font-size: 16px;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 1rem;
-    }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-text p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 1rem; }
     .about-text p:last-child { margin-bottom: 0; }
-    .about-facts {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .fact {
-      padding: 1rem 1.1rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-    }
-    .fact-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--faint);
-      margin-bottom: 4px;
-    }
-    .fact-value {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-    }
+    .about-facts { display: flex; flex-direction: column; gap: 1rem; }
+    .fact { padding: 1rem 1.1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+    .fact-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--faint); margin-bottom: 4px; }
+    .fact-value { font-size: 14px; font-weight: 500; color: var(--text); }
 
     /* SKILLS */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-    .skill-card {
-      padding: 1.1rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-    }
-    .skill-category {
-      font-size: 11px;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--faint);
-      margin-bottom: 8px;
-    }
-    .skill-list {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .skill-item {
-      font-size: 14px;
-      color: var(--text);
-    }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .skill-card { padding: 1.1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+    .skill-category { font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+    .skill-list { display: flex; flex-direction: column; gap: 4px; }
+    .skill-item { font-size: 14px; color: var(--text); }
 
     /* CONTACT */
-    .contact-inner {
-      text-align: center;
-      max-width: 480px;
-      margin: 0 auto;
-    }
-    .contact-inner h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-    }
-    .contact-inner p {
-      font-size: 16px;
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .contact-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      padding: 10px 20px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      transition: background 0.15s, border-color 0.15s;
-    }
+    .contact-inner { text-align: center; max-width: 480px; margin: 0 auto; }
+    .contact-inner h2 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .contact-inner p { font-size: 16px; color: var(--muted); margin-bottom: 2rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .contact-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); transition: background 0.15s, border-color 0.15s; }
     .contact-btn:hover { background: #f0f0ee; border-color: #ccc; }
-    .contact-btn.primary {
-      background: var(--text);
-      color: #fff;
-      border-color: var(--text);
-    }
+    .contact-btn.primary { background: var(--text); color: #fff; border-color: var(--text); }
     .contact-btn.primary:hover { opacity: 0.82; background: var(--text); }
     .contact-btn svg { width: 16px; height: 16px; }
 
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem;
-      text-align: center;
-      font-size: 13px;
-      color: var(--faint);
-    }
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 13px; color: var(--faint); }
 
-    /* RESPONSIVE */
     @media (max-width: 640px) {
       .about-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
@@ -366,7 +208,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <p class="hero-label">Video Editor — Delhi, India</p>
   <h1>Editing that makes<br><span>people watch twice.</span></h1>
@@ -393,78 +234,223 @@
 <!-- WORK -->
 <section id="work">
   <p class="section-label">Selected Work</p>
-  <div class="work-grid">
 
-    <!-- CARD 1 — replace VIDEO_ID_1 with actual YouTube video ID -->
-    <div class="work-card">
-      <div class="video-thumb">
-        <!-- INSTRUCTIONS: Replace VIDEO_ID_1 with your YouTube video ID
-             e.g. if URL is youtube.com/watch?v=dQw4w9WgXcQ, use dQw4w9WgXcQ
-             <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" allowfullscreen loading="lazy"></iframe>
-        -->
-       <iframe src="https://www.youtube.com/embed/fS2Fd8WZVYI" allowfullscreen loading="lazy"></iframe>
-      </div>
-      <div class="card-body">
-        <p class="card-type">Color Grading Demo</p>
-        <p class="card-title">Color Grading Demo</p>
-        <p class="card-desc">Scenic color grading skill via Premiere Pro</p>
-      </div>
-    </div>
-
-    <!-- CARD 2 -->
-    <div class="work-card">
-      <div class="video-thumb">
-        <!-- Replace VIDEO_ID_2 -->
-        <div class="video-placeholder">
-          <div class="play-icon">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </div>
-          <p>Add YouTube video ID</p>
-        </div>
-      </div>
-      <div class="card-body">
-        <p class="card-type">Vlog</p>
-        <p class="card-title">Travel Vlog</p>
-        <p class="card-desc">Full shoot-to-export vlog — colour correction, sound design, pacing, subtitles.</p>
-      </div>
-    </div>
-
-    <!-- CARD 3 -->
-    <div class="work-card">
-      <div class="video-thumb">
-        <!-- Replace VIDEO_ID_3 -->
-        <div class="video-placeholder">
-          <div class="play-icon">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </div>
-          <p>Add YouTube video ID</p>
-        </div>
-      </div>
-      <div class="card-body">
-        <p class="card-type">Short-form Reel</p>
-        <p class="card-title">Instagram Reel</p>
-        <p class="card-desc">Hook-driven vertical reel optimised for Instagram — transitions, captions, music.</p>
-      </div>
-    </div>
-
-    <!-- CARD 4 — add more cards as needed, same pattern -->
-    <div class="work-card">
-      <div class="video-thumb">
-        <div class="video-placeholder">
-          <div class="play-icon">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </div>
-          <p>Add YouTube video ID</p>
-        </div>
-      </div>
-      <div class="card-body">
-        <p class="card-type">Reel / Edit</p>
-        <p class="card-title">Your Next Project</p>
-        <p class="card-desc">Replace this with your next piece of work.</p>
-      </div>
-    </div>
-
+  <!-- TABS — add/remove tabs here to match your categories -->
+  <div class="cat-tabs">
+    <button class="cat-tab active" onclick="showCat('all', this)">All</button>
+    <button class="cat-tab" onclick="showCat('motivational', this)">Motivational Edits</button>
+    <button class="cat-tab" onclick="showCat('reels', this)">Short-form Reels</button>
+    <button class="cat-tab" onclick="showCat('music', this)">Music Edits</button>
+    <button class="cat-tab" onclick="showCat('vlog', this)">Vlogs</button>
+    <button class="cat-tab" onclick="showCat('colorgrade', this)">Colour Grading</button>
+    <button class="cat-tab" onclick="showCat('timeline', this)">Editing Timelines</button>
   </div>
+
+  <!-- ALL — shows everything, displayed by default -->
+  <div class="cat-section visible" id="cat-all">
+    <div class="work-grid">
+
+      <!-- === ADD YOUR VIDEOS HERE FOR "ALL" VIEW === -->
+      <!-- Copy a card block, paste it, change the video ID, title, desc -->
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <!-- Replace VIDEO_ID below with your YouTube video ID -->
+          <div class="video-placeholder">
+            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <p>Add YouTube video ID</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Motivational Edit</p>
+          <p class="card-title">Your Video Title</p>
+          <p class="card-desc">Short description of what this edit does.</p>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <div class="video-placeholder">
+            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <p>Add YouTube video ID</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Short-form Reel</p>
+          <p class="card-title">Your Video Title</p>
+          <p class="card-desc">Short description of what this edit does.</p>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <div class="video-placeholder">
+            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <p>Add YouTube video ID</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Colour Grading</p>
+          <p class="card-title">Your Video Title</p>
+          <p class="card-desc">Short description of what this edit does.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MOTIVATIONAL EDITS -->
+  <div class="cat-section" id="cat-motivational">
+    <div class="cat-header">
+      <span class="cat-title">Motivational Edits</span>
+      <span class="cat-desc">Film-based cinematic edits built around emotion and pacing</span>
+    </div>
+    <div class="work-grid">
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <!-- PASTE YOUR YOUTUBE IFRAME HERE -->
+          <!-- <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen loading="lazy"></iframe> -->
+          <div class="video-placeholder">
+            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <p>Add YouTube video ID</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Motivational Edit</p>
+          <p class="card-title">Your Video Title</p>
+          <p class="card-desc">Short description.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SHORT-FORM REELS -->
+  <div class="cat-section" id="cat-reels">
+    <div class="cat-header">
+      <span class="cat-title">Short-form Reels</span>
+      <span class="cat-desc">Hook-driven vertical content for Instagram and YouTube Shorts</span>
+    </div>
+    <div class="work-grid">
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <div class="video-placeholder">
+            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <p>Add YouTube video ID</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Short-form Reel</p>
+          <p class="card-title">Your Video Title</p>
+          <p class="card-desc">Short description.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MUSIC EDITS -->
+  <div class="cat-section" id="cat-music">
+    <div class="cat-header">
+      <span class="cat-title">Music Edits</span>
+      <span class="cat-desc">Edits built around music — sync, rhythm, and feel</span>
+    </div>
+    <div class="work-grid">
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <div class="video-placeholder">
+            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <p>Add YouTube video ID</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Music Edit</p>
+          <p class="card-title">Your Video Title</p>
+          <p class="card-desc">Short description.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- VLOGS -->
+  <div class="cat-section" id="cat-vlog">
+    <div class="cat-header">
+      <span class="cat-title">Vlogs</span>
+      <span class="cat-desc">Long-form storytelling — shoot to export</span>
+    </div>
+    <div class="work-grid">
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <div class="video-placeholder">
+            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <p>Add YouTube video ID</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Vlog</p>
+          <p class="card-title">Your Video Title</p>
+          <p class="card-desc">Short description.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COLOUR GRADING -->
+  <div class="cat-section" id="cat-colorgrade">
+    <div class="cat-header">
+      <span class="cat-title">Colour Grading</span>
+      <span class="cat-desc">Before/after grade demos and colour work</span>
+    </div>
+    <div class="work-grid">
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <div class="video-placeholder">
+            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <p>Add YouTube video ID</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Colour Grading</p>
+          <p class="card-title">Your Video Title</p>
+          <p class="card-desc">Short description.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EDITING TIMELINES -->
+  <div class="cat-section" id="cat-timeline">
+    <div class="cat-header">
+      <span class="cat-title">Editing Timelines</span>
+      <span class="cat-desc">Premiere Pro timeline walkthroughs and process breakdowns</span>
+    </div>
+    <div class="work-grid">
+
+      <div class="work-card">
+        <div class="video-thumb">
+          <div class="video-placeholder">
+            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <p>Add YouTube video ID</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Editing Timeline</p>
+          <p class="card-title">Your Video Title</p>
+          <p class="card-desc">Short description.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </section>
 
 <hr />
@@ -474,37 +460,16 @@
   <p class="section-label">About</p>
   <div class="about-grid">
     <div class="about-text">
-      <p>
-        I'm a self-taught video editor based in Delhi, with a background in creating motivational and cinematic edits — the kind that make people stop scrolling.
-      </p>
-      <p>
-        I got into editing through a genuine love of film and storytelling. Over time that turned into a hands-on practice across reels, vlogs, and content for social media — learning through doing rather than courses.
-      </p>
-      <p>
-        I'm comfortable working to a brief, taking feedback quickly, and delivering clean work on time. Currently open to internships and freelance video editing work.
-      </p>
+      <p>I'm a self-taught video editor based in Delhi, with a background in creating motivational and cinematic edits — the kind that make people stop scrolling.</p>
+      <p>I got into editing through a genuine love of film and storytelling. Over time that turned into a hands-on practice across reels, vlogs, and content for social media — learning through doing rather than courses.</p>
+      <p>I'm comfortable working to a brief, taking feedback quickly, and delivering clean work on time. Currently open to internships and freelance video editing work.</p>
     </div>
     <div class="about-facts">
-      <div class="fact">
-        <p class="fact-label">Primary Tool</p>
-        <p class="fact-value">Adobe Premiere Pro</p>
-      </div>
-      <div class="fact">
-        <p class="fact-label">Also use</p>
-        <p class="fact-value">CapCut</p>
-      </div>
-      <div class="fact">
-        <p class="fact-label">Content types</p>
-        <p class="fact-value">Reels · Vlogs · Cinematic Edits</p>
-      </div>
-      <div class="fact">
-        <p class="fact-label">Platforms</p>
-        <p class="fact-value">Instagram · YouTube</p>
-      </div>
-      <div class="fact">
-        <p class="fact-label">Based in</p>
-        <p class="fact-value">Delhi, India</p>
-      </div>
+      <div class="fact"><p class="fact-label">Primary Tool</p><p class="fact-value">Adobe Premiere Pro</p></div>
+      <div class="fact"><p class="fact-label">Also use</p><p class="fact-value">CapCut</p></div>
+      <div class="fact"><p class="fact-label">Content types</p><p class="fact-value">Reels · Vlogs · Cinematic Edits</p></div>
+      <div class="fact"><p class="fact-label">Platforms</p><p class="fact-value">Instagram · YouTube</p></div>
+      <div class="fact"><p class="fact-label">Based in</p><p class="fact-value">Delhi, India</p></div>
     </div>
   </div>
 </section>
@@ -567,7 +532,7 @@
         Email me
       </a>
       <a href="https://instagram.com/bettercallsmyt" target="_blank" rel="noopener" class="contact-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap: round; stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         Instagram
       </a>
     </div>
@@ -577,6 +542,15 @@
 <footer>
   <p>© 2026 bettercallsmyt · Delhi, India</p>
 </footer>
+
+<script>
+  function showCat(cat, btn) {
+    document.querySelectorAll('.cat-section').forEach(s => s.classList.remove('visible'));
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('cat-' + cat).classList.add('visible');
+    btn.classList.add('active');
+  }
+</script>
 
 </body>
 </html>
