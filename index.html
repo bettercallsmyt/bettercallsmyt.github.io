@@ -4,193 +4,131 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>bettercallsmyt — Video Editor</title>
-  <meta name="description" content="Video editor specialising in short-form reels, cinematic edits, and long-form content. Based in Delhi." />
+  <meta name="description" content="Video editor specialising in short-form reels, cinematic edits, colour grading and long-form content. Based in Delhi." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --bg: #f9f9f7;
       --surface: #ffffff;
       --text: #1a1a1a;
-      --muted: #666666;
-      --faint: #999999;
+      --muted: #666;
+      --faint: #999;
       --border: #e5e5e2;
     }
+    body { font-family: 'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+    /* NAV */
+    nav { position:sticky; top:0; background:rgba(249,249,247,0.93); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); z-index:100; padding:0 2rem; }
+    .nav-inner { max-width:980px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:56px; }
+    .nav-logo { font-size:15px; font-weight:600; letter-spacing:-0.02em; }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a { font-size:14px; color:var(--muted); transition:color .15s; }
+    .nav-links a:hover { color:var(--text); }
 
-    a { color: inherit; text-decoration: none; }
+    /* HERO */
+    .hero { max-width:980px; margin:0 auto; padding:7rem 2rem 5rem; }
+    .hero-label { font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); margin-bottom:1.25rem; }
+    .hero h1 { font-size:clamp(2.4rem,6vw,4rem); font-weight:700; letter-spacing:-.03em; line-height:1.1; margin-bottom:1.5rem; }
+    .hero h1 span { color:var(--faint); }
+    .hero-desc { font-size:17px; color:var(--muted); max-width:540px; line-height:1.75; margin-bottom:2.5rem; }
+    .hero-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:2.5rem; }
+    .tag { font-size:13px; padding:5px 13px; border:1px solid var(--border); border-radius:100px; color:var(--muted); background:var(--surface); }
+    .hero-cta { display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:500; background:var(--text); color:#fff; padding:11px 22px; border-radius:8px; transition:opacity .15s; }
+    .hero-cta:hover { opacity:.82; }
+    .hero-cta svg { width:16px; height:16px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 
-    nav {
-      position: sticky; top: 0;
-      background: rgba(249,249,247,0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      z-index: 100; padding: 0 2rem;
-    }
-    .nav-inner {
-      max-width: 960px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between; height: 56px;
-    }
-    .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: 14px; color: var(--muted); transition: color 0.15s; }
-    .nav-links a:hover { color: var(--text); }
+    hr { border:none; border-top:1px solid var(--border); }
 
-    section { max-width: 960px; margin: 0 auto; padding: 5rem 2rem; }
-    .hero { padding-top: 7rem; padding-bottom: 5rem; }
-    .hero-label { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 1.25rem; }
-    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.5rem; }
-    .hero h1 span { color: var(--faint); }
-    .hero-desc { font-size: 17px; color: var(--muted); max-width: 540px; line-height: 1.7; margin-bottom: 2.5rem; }
-    .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2.5rem; }
-    .tag { font-size: 13px; padding: 5px 12px; border: 1px solid var(--border); border-radius: 100px; color: var(--muted); background: var(--surface); }
-    .hero-cta { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; background: var(--text); color: #fff; padding: 10px 20px; border-radius: 8px; transition: opacity 0.15s; }
-    .hero-cta:hover { opacity: 0.82; }
-    .hero-cta svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-    hr { border: none; border-top: 1px solid var(--border); }
-    .section-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 1.75rem; }
+    /* WORK SECTION */
+    .work-section { max-width:980px; margin:0 auto; padding:5rem 2rem; }
+    .section-label { font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); margin-bottom:1.75rem; }
 
     /* TABS */
-    .cat-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2.75rem; }
-    .cat-tab {
-      font-size: 13px; font-weight: 500; padding: 6px 16px;
-      border-radius: 100px; border: 1px solid var(--border);
-      background: var(--surface); color: var(--muted);
-      cursor: pointer; transition: all 0.15s; user-select: none;
-    }
-    .cat-tab:hover { border-color: #bbb; color: var(--text); }
-    .cat-tab.active { background: var(--text); color: #fff; border-color: var(--text); }
+    .cat-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:2.75rem; }
+    .cat-tab { font-size:13px; font-weight:500; padding:6px 16px; border-radius:100px; border:1px solid var(--border); background:var(--surface); color:var(--muted); cursor:pointer; transition:all .15s; user-select:none; }
+    .cat-tab:hover { border-color:#bbb; color:var(--text); }
+    .cat-tab.active { background:var(--text); color:#fff; border-color:var(--text); }
 
-    .cat-section { display: none; }
-    .cat-section.visible { display: block; }
+    /* CATEGORY PANELS */
+    .cat-panel { display:none; }
+    .cat-panel.visible { display:block; }
+    .cat-header { margin-bottom:1.5rem; }
+    .cat-title { font-size:19px; font-weight:600; letter-spacing:-.01em; display:block; margin-bottom:4px; }
+    .cat-desc { font-size:14px; color:var(--faint); display:block; }
 
-    /* CATEGORY HEADER */
-    .cat-header { margin-bottom: 1.5rem; }
-    .cat-title { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); display: block; margin-bottom: 4px; }
-    .cat-desc { font-size: 14px; color: var(--faint); display: block; }
+    /* GRID */
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-bottom:2rem; }
+    .grid-2col { grid-template-columns:repeat(2,1fr); }
+    .grid-4col { grid-template-columns:repeat(4,1fr); }
 
-    /* GRIDS */
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-bottom: 3.5rem;
-    }
-    /* Featured card — spans 2 cols */
-    .work-card.featured { grid-column: span 2; }
+    /* CARDS */
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:transform .18s,box-shadow .18s; }
+    .card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,.07); }
+    .card.wide { grid-column:span 2; }
+    .card.full { grid-column:1/-1; }
 
-    /* Set — 3 cards visually grouped */
-    .card-set {
-      grid-column: 1 / -1;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.25rem;
-      margin-bottom: 0;
-    }
-    .card-set-label {
-      font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase;
-      color: var(--faint); margin-bottom: 1rem;
-    }
-    .card-set-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-    .card-set-item {}
-    .card-set-item .video-thumb { border-radius: 8px; overflow: hidden; }
+    /* THUMB */
+    .thumb { position:relative; width:100%; padding-bottom:56.25%; background:#111; overflow:hidden; }
+    .thumb.vertical { padding-bottom:177.78%; } /* 9:16 for shorts */
+    .thumb iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
+    .placeholder { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:#111; }
+    .placeholder .pi { width:44px; height:44px; border-radius:50%; border:1.5px solid rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; }
+    .placeholder .pi svg { width:18px; height:18px; fill:rgba(255,255,255,.5); margin-left:2px; }
+    .placeholder p { font-size:11px; color:rgba(255,255,255,.25); letter-spacing:.04em; }
 
-    .work-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; overflow: hidden;
-      transition: transform 0.18s, box-shadow 0.18s;
-    }
-    .work-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+    /* CARD BODY */
+    .cb { padding:.9rem 1rem 1rem; }
+    .cb-type { font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint); margin-bottom:3px; }
+    .cb-title { font-size:14px; font-weight:500; color:var(--text); margin-bottom:3px; }
+    .cb-desc { font-size:13px; color:var(--muted); line-height:1.5; }
 
-    .video-thumb {
-      position: relative; width: 100%; padding-bottom: 56.25%;
-      background: #111; overflow: hidden;
-    }
-    .video-thumb iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    /* GROUPED SET (color grading 3-piece) */
+    .set { grid-column:1/-1; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.25rem; }
+    .set-label { font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint); margin-bottom:1rem; }
+    .set-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+    .set-item .thumb { border-radius:8px; overflow:hidden; }
+    .set-item .cb { padding:.7rem .1rem 0; }
 
-    .video-placeholder {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-      background: #111;
-    }
-    .video-placeholder .play-icon {
-      width: 44px; height: 44px; border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.2);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .video-placeholder .play-icon svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.5); margin-left: 2px; }
-    .video-placeholder p { font-size: 11px; color: rgba(255,255,255,0.25); }
+    /* VLOG LAYOUT */
+    .vlog-wrap { grid-column:1/-1; display:grid; grid-template-columns:2fr 1fr; gap:1.25rem; }
+    .vlog-side { display:flex; flex-direction:column; gap:1rem; }
+    .vlog-side .card { flex:1; }
+    .vlog-side .thumb { padding-bottom:75%; }
 
-    .card-body { padding: 0.9rem 1rem; }
-    .card-type { font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--faint); margin-bottom: 3px; }
-    .card-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-    .card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    /* OTHER SECTIONS */
+    .other-section { max-width:980px; margin:0 auto; padding:5rem 2rem; }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
+    .about-text p { font-size:16px; color:var(--muted); line-height:1.75; margin-bottom:1rem; }
+    .about-text p:last-child { margin-bottom:0; }
+    .facts { display:flex; flex-direction:column; gap:1rem; }
+    .fact { padding:1rem 1.1rem; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+    .fact-l { font-size:11px; text-transform:uppercase; letter-spacing:.07em; color:var(--faint); margin-bottom:4px; }
+    .fact-v { font-size:14px; font-weight:500; color:var(--text); }
+    .skills-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1rem; }
+    .skill-card { padding:1.1rem; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+    .skill-cat { font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint); margin-bottom:8px; }
+    .skill-list { display:flex; flex-direction:column; gap:4px; }
+    .skill-item { font-size:14px; color:var(--text); }
+    .contact-inner { text-align:center; max-width:480px; margin:0 auto; }
+    .contact-inner h2 { font-size:2rem; font-weight:700; letter-spacing:-.02em; margin-bottom:.75rem; }
+    .contact-inner p { font-size:16px; color:var(--muted); margin-bottom:2rem; }
+    .contact-links { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:500; padding:10px 20px; border-radius:8px; border:1px solid var(--border); background:var(--surface); color:var(--text); transition:background .15s; }
+    .btn:hover { background:#f0f0ee; border-color:#ccc; }
+    .btn.primary { background:var(--text); color:#fff; border-color:var(--text); }
+    .btn.primary:hover { opacity:.82; }
+    .btn svg { width:16px; height:16px; }
+    footer { border-top:1px solid var(--border); padding:2rem; text-align:center; font-size:13px; color:var(--faint); }
 
-    /* VLOG SET — special layout: intro + reel small, full vlog wide */
-    .vlog-layout {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 1.25rem;
-    }
-    .vlog-main { grid-column: 1 / 3; }
-    .vlog-cuts { grid-column: 3 / 4; display: flex; flex-direction: column; gap: 1rem; }
-    .vlog-cuts .work-card { flex: 1; }
-    .vlog-cuts .video-thumb { padding-bottom: 60%; }
-
-    /* ABOUT */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-    .about-text p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 1rem; }
-    .about-text p:last-child { margin-bottom: 0; }
-    .about-facts { display: flex; flex-direction: column; gap: 1rem; }
-    .fact { padding: 1rem 1.1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
-    .fact-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--faint); margin-bottom: 4px; }
-    .fact-value { font-size: 14px; font-weight: 500; color: var(--text); }
-
-    /* SKILLS */
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
-    .skill-card { padding: 1.1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
-    .skill-category { font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
-    .skill-list { display: flex; flex-direction: column; gap: 4px; }
-    .skill-item { font-size: 14px; color: var(--text); }
-
-    /* CONTACT */
-    .contact-inner { text-align: center; max-width: 480px; margin: 0 auto; }
-    .contact-inner h2 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
-    .contact-inner p { font-size: 16px; color: var(--muted); margin-bottom: 2rem; }
-    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-    .contact-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); transition: background 0.15s; }
-    .contact-btn:hover { background: #f0f0ee; border-color: #ccc; }
-    .contact-btn.primary { background: var(--text); color: #fff; border-color: var(--text); }
-    .contact-btn.primary:hover { opacity: 0.82; }
-    .contact-btn svg { width: 16px; height: 16px; }
-
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 13px; color: var(--faint); }
-
-    @media (max-width: 720px) {
-      .work-grid { grid-template-columns: 1fr; }
-      .work-card.featured { grid-column: span 1; }
-      .card-set-grid { grid-template-columns: 1fr; }
-      .vlog-layout { grid-template-columns: 1fr; }
-      .vlog-main, .vlog-cuts { grid-column: auto; }
-      .about-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      section { padding: 3.5rem 1.25rem; }
-      .hero { padding-top: 4rem; }
+    @media(max-width:720px) {
+      .grid,.set-grid { grid-template-columns:1fr; }
+      .card.wide,.card.full { grid-column:span 1; }
+      .vlog-wrap { grid-template-columns:1fr; }
+      .about-grid { grid-template-columns:1fr; }
+      .nav-links { display:none; }
+      .hero,.work-section,.other-section { padding-left:1.25rem; padding-right:1.25rem; }
+      .hero { padding-top:4rem; }
     }
   </style>
 </head>
@@ -207,335 +145,445 @@
   </div>
 </nav>
 
-<section class="hero">
+<!-- HERO -->
+<div class="hero">
   <p class="hero-label">Video Editor — Delhi, India</p>
   <h1>Editing that makes<br><span>people watch twice.</span></h1>
-  <p class="hero-desc">
-    I create short-form reels, cinematic edits, and long-form content that holds attention.
-    Comfortable with everything from social media content to vlogs — from brief to final export.
-  </p>
+  <p class="hero-desc">Self-taught editor working across cinematic edits, short-form reels, colour grading, and long-form content. From brief to final export.</p>
   <div class="hero-tags">
     <span class="tag">Adobe Premiere Pro</span>
+    <span class="tag">After Effects</span>
     <span class="tag">Short-form Reels</span>
     <span class="tag">Cinematic Edits</span>
     <span class="tag">Colour Grading</span>
-    <span class="tag">After Effects</span>
     <span class="tag">Vlogs</span>
+    <span class="tag">CapCut</span>
   </div>
   <a href="#work" class="hero-cta">
     View my work
     <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
   </a>
-</section>
+</div>
 
 <hr />
 
-<!-- ===================== WORK ===================== -->
-<section id="work">
+<!-- WORK -->
+<div class="work-section" id="work">
   <p class="section-label">Selected Work</p>
 
   <div class="cat-tabs">
-    <button class="cat-tab active" onclick="showCat('all', this)">All</button>
-    <button class="cat-tab" onclick="showCat('motivational', this)">Motivational Edits</button>
-    <button class="cat-tab" onclick="showCat('reels', this)">Short-form Reels</button>
-    <button class="cat-tab" onclick="showCat('music', this)">Music Edits</button>
-    <button class="cat-tab" onclick="showCat('vlog', this)">Vlog</button>
-    <button class="cat-tab" onclick="showCat('colorgrade', this)">Colour Grading</button>
-    <button class="cat-tab" onclick="showCat('ae', this)">After Effects</button>
-    <button class="cat-tab" onclick="showCat('timeline', this)">Timelines</button>
+    <button class="cat-tab active" onclick="showCat('all',this)">All</button>
+    <button class="cat-tab" onclick="showCat('motivational',this)">Motivational</button>
+    <button class="cat-tab" onclick="showCat('shortform',this)">Short-form Reels</button>
+    <button class="cat-tab" onclick="showCat('music',this)">Music Edits</button>
+    <button class="cat-tab" onclick="showCat('vlog',this)">Vlog</button>
+    <button class="cat-tab" onclick="showCat('colorgrade',this)">Colour Grading</button>
+    <button class="cat-tab" onclick="showCat('ae',this)">After Effects</button>
+    <button class="cat-tab" onclick="showCat('timeline',this)">Timelines</button>
   </div>
 
-  <!-- ====== ALL TAB — best 6-7, one from each category ====== -->
-  <div class="cat-section visible" id="cat-all">
-    <div class="work-grid">
+  <!-- ═══════════════ ALL ═══════════════ -->
+  <div class="cat-panel visible" id="cat-all">
+    <div class="grid">
 
-      <!-- 1. Best motivational edit — FEATURED (wider) -->
-      <div class="work-card featured">
-        <div class="video-thumb">
-          <!-- REPLACE: your best motivational edit video ID -->
-          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen loading="lazy"></iframe> -->
-          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Motivational Edit</p></div>
+      <!-- Best motivational — wide featured -->
+      <div class="card wide">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/riYrr2DcqEY" allowfullscreen loading="lazy"></iframe>
         </div>
-        <div class="card-body">
-          <p class="card-type">Motivational Edit</p>
-          <p class="card-title">Your Best Motivational Edit</p>
-          <p class="card-desc">Your strongest piece. Pacing, music sync, emotional build. ~3k views on Instagram.</p>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">Motivational Edit</p>
+          <p class="cb-desc">Pacing, music sync, and emotional build. One of the best quality pieces.</p>
         </div>
       </div>
 
-      <!-- 2. Colour grading demo -->
-      <div class="work-card">
-        <div class="video-thumb">
-          <!-- REPLACE: colour grading demo video ID -->
-          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Colour Grading</p></div>
+      <!-- Short-form client work -->
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/8wWBPWGB7CU" allowfullscreen loading="lazy"></iframe>
         </div>
-        <div class="card-body">
-          <p class="card-type">Colour Grading</p>
-          <p class="card-title">Colour Grade Demo</p>
-          <p class="card-desc">Raw to graded — masking technique with line wipe transition.</p>
-        </div>
-      </div>
-
-      <!-- 3. Festival reel (short music cut) -->
-      <div class="work-card">
-        <div class="video-thumb">
-          <!-- REPLACE: festival reel / music cut video ID -->
-          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Festival Reel</p></div>
-        </div>
-        <div class="card-body">
-          <p class="card-type">Short-form Reel</p>
-          <p class="card-title">Festival Reel</p>
-          <p class="card-desc">Music-driven short cut from festival footage. Sync, transitions, energy.</p>
+        <div class="cb">
+          <p class="cb-type">Short-form · Client Work</p>
+          <p class="cb-title">Client Reel</p>
+          <p class="cb-desc">Music-based short-form edit produced for a client.</p>
         </div>
       </div>
 
-      <!-- 4. After Effects VFX -->
-      <div class="work-card">
-        <div class="video-thumb">
-          <!-- REPLACE: after effects / vfx video ID -->
-          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>After Effects</p></div>
+      <!-- Color grading -->
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/XVjEiMo1dYU" allowfullscreen loading="lazy"></iframe>
         </div>
-        <div class="card-body">
-          <p class="card-type">After Effects</p>
-          <p class="card-title">VFX / Motion Edit</p>
-          <p class="card-desc">Camera movement, logo masking, light VFX work in After Effects.</p>
-        </div>
-      </div>
-
-      <!-- 5. Music edit -->
-      <div class="work-card">
-        <div class="video-thumb">
-          <!-- REPLACE: music edit video ID -->
-          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Music Edit</p></div>
-        </div>
-        <div class="card-body">
-          <p class="card-type">Music Edit</p>
-          <p class="card-title">Music Based Edit</p>
-          <p class="card-desc">Edit built entirely around the track — rhythm, cuts, and feel.</p>
+        <div class="cb">
+          <p class="cb-type">Colour Grading</p>
+          <p class="cb-title">Colour Grade Demo</p>
+          <p class="cb-desc">Raw to graded — line wipe transition with masking technique.</p>
         </div>
       </div>
 
-      <!-- 6. Timeline proof -->
-      <div class="work-card">
-        <div class="video-thumb">
-          <!-- REPLACE: timeline recording video ID -->
+      <!-- Music edit -->
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/XsGMFunxb78" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Music Edit</p>
+          <p class="cb-title">Music Based Edit</p>
+          <p class="cb-desc">Edit built around the track — rhythm, cuts, and feel.</p>
+        </div>
+      </div>
+
+      <!-- Festival reel placeholder -->
+      <div class="card">
+        <div class="thumb">
+          <div class="placeholder">
+            <div class="pi"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <p>Festival Intro — Coming Soon</p>
+          </div>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form Reel</p>
+          <p class="cb-title">Festival Intro Reel</p>
+          <p class="cb-desc">Music-driven festival intro cut. Uploading soon.</p>
+        </div>
+      </div>
+
+      <!-- After Effects -->
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/rvwz3L-l1TE" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">After Effects · VFX</p>
+          <p class="cb-title">VFX / Motion Edit</p>
+          <p class="cb-desc">Camera movement, logo masking, light VFX in After Effects.</p>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="card">
+        <div class="thumb">
           <iframe src="https://www.youtube.com/embed/xLbuiTQBH1g" allowfullscreen loading="lazy"></iframe>
-        <div class="card-body">
-          <p class="card-type">Process</p>
-          <p class="card-title">Premiere Pro Timeline of Kendrick Edit</p>
-          <p class="card-desc">Raw Premiere Pro timeline — shows editing structure, layering, and workflow.</p>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Process · Premiere Pro</p>
+          <p class="cb-title">Editing Timeline</p>
+          <p class="cb-desc">Raw Premiere Pro timeline — layering, structure, and workflow.</p>
+        </div>
+      </div>
+
+      <!-- Vlog -->
+      <div class="card wide">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/WUEkyhyKUps" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Full-length Vlog · Long-form</p>
+          <p class="cb-title">Festival Vlog</p>
+          <p class="cb-desc">Complete shoot-to-export vlog — colour correction, sound design, pacing, and subtitles.</p>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- ====== MOTIVATIONAL EDITS ====== -->
-  <div class="cat-section" id="cat-motivational">
+  <!-- ═══════════════ MOTIVATIONAL ═══════════════ -->
+  <div class="cat-panel" id="cat-motivational">
     <div class="cat-header">
       <span class="cat-title">Motivational Edits</span>
       <span class="cat-desc">Film-clip edits built around emotion, pacing, and music sync</span>
     </div>
-    <div class="work-grid">
-      <!-- Add all motivational edits here, best first -->
-      <!-- Copy this card block and paste below for each video -->
+    <div class="grid">
 
-      <div class="work-card featured">
-        <div class="video-thumb">
-          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen loading="lazy"></iframe> -->
-          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
+      <div class="card wide">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/riYrr2DcqEY" allowfullscreen loading="lazy"></iframe>
         </div>
-        <div class="card-body">
-          <p class="card-type">Motivational Edit</p>
-          <p class="card-title">Edit Title</p>
-          <p class="card-desc">Description — what film, what mood, what technique.</p>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">Motivational Edit</p>
+          <p class="cb-desc">High quality edit — pacing, music sync, emotional build.</p>
         </div>
       </div>
 
-      <div class="work-card">
-        <div class="video-thumb">
-          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/G828Fo-NAPI" allowfullscreen loading="lazy"></iframe>
         </div>
-        <div class="card-body">
-          <p class="card-type">Motivational Edit</p>
-          <p class="card-title">Edit Title</p>
-          <p class="card-desc">Description.</p>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">Kanye West Edit</p>
+          <p class="cb-desc">Motivational edit.</p>
         </div>
       </div>
 
-      <div class="work-card">
-        <div class="video-thumb">
-          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/42EqzD8ahBc" allowfullscreen loading="lazy"></iframe>
         </div>
-        <div class="card-body">
-          <p class="card-type">Motivational Edit</p>
-          <p class="card-title">Edit Title</p>
-          <p class="card-desc">Description.</p>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">Messi Edit</p>
+          <p class="cb-desc">Cinematic motivational edit.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/Pz94ax6L7V0" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">The Pursuit of Happyness</p>
+          <p class="cb-desc">Motivational edit from the film.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/eTSsGM4BnVM" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit · 10s</p>
+          <p class="cb-title">Whiplash Edit</p>
+          <p class="cb-desc">10 second motivational edit with a quote.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/es4In4o76oE" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">The Social Network Edit</p>
+          <p class="cb-desc">Cinematic motivational edit.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/18n_8mK64GU" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">Wake Up Edit</p>
+          <p class="cb-desc">Put down your phone — your dreams are slipping.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/A9vcGN7wZr4" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">Motivational Edit</p>
+          <p class="cb-desc">Cinematic motivational edit.</p>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- ====== SHORT-FORM REELS ====== -->
-  <div class="cat-section" id="cat-reels">
+  <!-- ═══════════════ SHORT FORM ═══════════════ -->
+  <div class="cat-panel" id="cat-shortform">
     <div class="cat-header">
       <span class="cat-title">Short-form Reels</span>
-      <span class="cat-desc">Hook-driven vertical content built for Instagram</span>
+      <span class="cat-desc">Vertical content for Instagram and YouTube Shorts — hooks, transitions, trends</span>
     </div>
-    <div class="work-grid">
+    <div class="grid grid-4col">
 
-      <div class="work-card">
-        <div class="video-thumb">
-          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/8wWBPWGB7CU" allowfullscreen loading="lazy"></iframe>
         </div>
-        <div class="card-body">
-          <p class="card-type">Short-form Reel</p>
-          <p class="card-title">Reel Title</p>
-          <p class="card-desc">Description.</p>
+        <div class="cb">
+          <p class="cb-type">Short-form · Client Work</p>
+          <p class="cb-title">Client Reel</p>
+          <p class="cb-desc">Music-based edit produced for a client.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/hVOQgi5v2Pw" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form · Trending</p>
+          <p class="cb-title">Trending Reel</p>
+          <p class="cb-desc">Music-based trending reel format.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/JvDVDJSOzIw" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form · Motivational</p>
+          <p class="cb-title">Kendrick Short</p>
+          <p class="cb-desc">Motivational short-form edit. Strong editing, lower source quality.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/5AeD7vj1JbY" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form · Motivational</p>
+          <p class="cb-title">Kanye Short</p>
+          <p class="cb-desc">Short-form motivational edit.</p>
+        </div>
+      </div>
+
+      <!-- Placeholder for upcoming short -->
+      <div class="card">
+        <div class="thumb vertical">
+          <div class="placeholder">
+            <div class="pi"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <p>Coming Soon</p>
+          </div>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form</p>
+          <p class="cb-title">New Short</p>
+          <p class="cb-desc">Uploading soon — replace this placeholder with your YouTube ID.</p>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- ====== MUSIC EDITS ====== -->
-  <div class="cat-section" id="cat-music">
+  <!-- ═══════════════ MUSIC EDITS ═══════════════ -->
+  <div class="cat-panel" id="cat-music">
     <div class="cat-header">
       <span class="cat-title">Music Edits</span>
       <span class="cat-desc">Edits built around a track — sync, rhythm, and feel first</span>
     </div>
-    <div class="work-grid">
+    <div class="grid grid-2col">
 
-      <div class="work-card featured">
-        <div class="video-thumb">
-          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/XsGMFunxb78" allowfullscreen loading="lazy"></iframe>
         </div>
-        <div class="card-body">
-          <p class="card-type">Music Edit</p>
-          <p class="card-title">Edit Title</p>
-          <p class="card-desc">Description.</p>
+        <div class="cb">
+          <p class="cb-type">Music Edit</p>
+          <p class="cb-title">Music Based Edit</p>
+          <p class="cb-desc">Edit driven entirely by the track — rhythm, cuts, and feel.</p>
         </div>
       </div>
 
-      <div class="work-card">
-        <div class="video-thumb">
-          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Add video ID</p></div>
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/8wWBPWGB7CU" allowfullscreen loading="lazy"></iframe>
         </div>
-        <div class="card-body">
-          <p class="card-type">Music Edit</p>
-          <p class="card-title">Edit Title</p>
-          <p class="card-desc">Description.</p>
+        <div class="cb">
+          <p class="cb-type">Music Edit · Client</p>
+          <p class="cb-title">Client Music Reel</p>
+          <p class="cb-desc">Music-based short-form edit for a client — sync and energy.</p>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- ====== VLOG ====== -->
-  <div class="cat-section" id="cat-vlog">
+  <!-- ═══════════════ VLOG ═══════════════ -->
+  <div class="cat-panel" id="cat-vlog">
     <div class="cat-header">
       <span class="cat-title">Vlog</span>
-      <span class="cat-desc">Long-form storytelling — full shoot to export. Festival vlog with intro and music cut.</span>
+      <span class="cat-desc">Long-form storytelling — full shoot to export including intro and music sequence</span>
     </div>
-    <div class="work-grid">
+    <div class="grid">
+      <div class="vlog-wrap">
 
-      <!-- Special vlog layout: full vlog wide, intro + reel stacked on the right -->
-      <div class="vlog-layout">
-
-        <!-- Full 8-min vlog — takes 2/3 width -->
-        <div class="work-card vlog-main">
-          <div class="video-thumb">
-            <!-- REPLACE: full 8 min vlog video ID -->
-            <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen loading="lazy"></iframe> -->
-            <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Full Vlog</p></div>
+        <!-- Full vlog — wide left -->
+        <div class="card">
+          <div class="thumb">
+            <iframe src="https://www.youtube.com/embed/WUEkyhyKUps" allowfullscreen loading="lazy"></iframe>
           </div>
-          <div class="card-body">
-            <p class="card-type">Full-length Vlog · 8 min</p>
-            <p class="card-title">Festival Vlog</p>
-            <p class="card-desc">Complete vlog — shoot to export. Colour correction, sound design, pacing, subtitles. Contains the intro and music sequence as part of the full edit.</p>
+          <div class="cb">
+            <p class="cb-type">Full Vlog · 8 min</p>
+            <p class="cb-title">Festival Vlog</p>
+            <p class="cb-desc">Complete shoot-to-export vlog. Colour correction, sound design, pacing, subtitles. Contains the intro and music sequence as part of the full edit.</p>
           </div>
         </div>
 
-        <!-- Intro + Reel stacked on the right -->
-        <div class="vlog-cuts">
-
-          <div class="work-card">
-            <div class="video-thumb">
-              <!-- REPLACE: intro cut video ID -->
-              <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Intro Cut</p></div>
+        <!-- Intro + music reel stacked right -->
+        <div class="vlog-side">
+          <div class="card">
+            <div class="thumb">
+              <div class="placeholder">
+                <div class="pi"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                <p>Festival Intro — Coming Soon</p>
+              </div>
             </div>
-            <div class="card-body">
-              <p class="card-type">Intro Cut</p>
-              <p class="card-title">Festival Intro</p>
-              <p class="card-desc">Standalone intro sequence cut from the vlog.</p>
-            </div>
-          </div>
-
-          <div class="work-card">
-            <div class="video-thumb">
-              <!-- REPLACE: music reel cut video ID -->
-              <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Music Reel Cut</p></div>
-            </div>
-            <div class="card-body">
-              <p class="card-type">Music Cut</p>
-              <p class="card-title">Festival Reel</p>
-              <p class="card-desc">Music-driven short cut from the same footage. Sync and energy.</p>
+            <div class="cb">
+              <p class="cb-type">Intro Cut</p>
+              <p class="cb-title">Festival Intro</p>
+              <p class="cb-desc">Standalone intro cut from the vlog. Uploading soon.</p>
             </div>
           </div>
 
+          <div class="card">
+            <div class="thumb">
+              <iframe src="https://www.youtube.com/embed/XsGMFunxb78" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <div class="cb">
+              <p class="cb-type">Music Cut</p>
+              <p class="cb-title">Festival Music Reel</p>
+              <p class="cb-desc">Music-driven short cut from festival footage.</p>
+            </div>
+          </div>
         </div>
+
       </div>
-
     </div>
   </div>
 
-  <!-- ====== COLOUR GRADING ====== -->
-  <div class="cat-section" id="cat-colorgrade">
+  <!-- ═══════════════ COLOUR GRADING ═══════════════ -->
+  <div class="cat-panel" id="cat-colorgrade">
     <div class="cat-header">
       <span class="cat-title">Colour Grading</span>
-      <span class="cat-desc">Raw to graded — masking, line wipe transitions, and before/after demos</span>
+      <span class="cat-desc">Raw to graded — masking technique, line wipe transitions, before/after demos</span>
     </div>
+    <div class="grid">
+      <div class="set">
+        <p class="set-label">Colour Grade Demo Series — 3 pieces</p>
+        <div class="set-grid">
 
-    <!-- The 3 demos shown as a set -->
-    <div class="work-grid">
-      <div class="card-set">
-        <p class="card-set-label">Colour Grade Demo Series — 3 pieces</p>
-        <div class="card-set-grid">
-
-          <div class="card-set-item">
-            <div class="video-thumb" style="border-radius:8px;">
-              <!-- REPLACE: colour grade demo 1 -->
-              <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Demo 1</p></div>
+          <div class="set-item">
+            <div class="thumb" style="border-radius:8px; overflow:hidden;">
+              <iframe src="https://www.youtube.com/embed/XVjEiMo1dYU" allowfullscreen loading="lazy"></iframe>
             </div>
-            <div class="card-body" style="padding: 0.75rem 0.25rem 0;">
-              <p class="card-type">Colour Grade</p>
-              <p class="card-title">Grade Demo 01</p>
-              <p class="card-desc">Line wipe + masking technique. Raw to final.</p>
+            <div class="cb" style="padding:.75rem .1rem 0;">
+              <p class="cb-type">Colour Grade</p>
+              <p class="cb-title">Grade Demo 01</p>
+              <p class="cb-desc">Line wipe + masking. Raw to final.</p>
             </div>
           </div>
 
-          <div class="card-set-item">
-            <div class="video-thumb" style="border-radius:8px;">
-              <!-- REPLACE: colour grade demo 2 -->
-              <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Demo 2</p></div>
+          <div class="set-item">
+            <div class="thumb" style="border-radius:8px; overflow:hidden;">
+              <iframe src="https://www.youtube.com/embed/Tg9fCT3MsY8" allowfullscreen loading="lazy"></iframe>
             </div>
-            <div class="card-body" style="padding: 0.75rem 0.25rem 0;">
-              <p class="card-type">Colour Grade</p>
-              <p class="card-title">Grade Demo 02</p>
-              <p class="card-desc">Colour transformation — raw footage to graded output.</p>
+            <div class="cb" style="padding:.75rem .1rem 0;">
+              <p class="cb-type">Colour Grade</p>
+              <p class="cb-title">Grade Demo 02</p>
+              <p class="cb-desc">Colour transformation — raw footage to graded output.</p>
             </div>
           </div>
 
-          <div class="card-set-item">
-            <div class="video-thumb" style="border-radius:8px;">
-              <!-- REPLACE: colour grade demo 3 -->
-              <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>Demo 3</p></div>
+          <div class="set-item">
+            <div class="thumb" style="border-radius:8px; overflow:hidden;">
+              <iframe src="https://www.youtube.com/embed/fS2Fd8WZVYI" allowfullscreen loading="lazy"></iframe>
             </div>
-            <div class="card-body" style="padding: 0.75rem 0.25rem 0;">
-              <p class="card-type">Colour Grade</p>
-              <p class="card-title">Grade Demo 03</p>
-              <p class="card-desc">Colour transformation — raw footage to graded output.</p>
+            <div class="cb" style="padding:.75rem .1rem 0;">
+              <p class="cb-type">Colour Grade</p>
+              <p class="cb-title">Grade Demo 03</p>
+              <p class="cb-desc">Colour transformation — raw footage to graded output.</p>
             </div>
           </div>
 
@@ -544,90 +592,104 @@
     </div>
   </div>
 
-  <!-- ====== AFTER EFFECTS ====== -->
-  <div class="cat-section" id="cat-ae">
+  <!-- ═══════════════ AFTER EFFECTS ═══════════════ -->
+  <div class="cat-panel" id="cat-ae">
     <div class="cat-header">
       <span class="cat-title">After Effects</span>
       <span class="cat-desc">Light VFX, camera movement, logo masking — early AE work</span>
     </div>
-    <div class="work-grid">
+    <div class="grid grid-2col">
 
-      <div class="work-card featured">
-        <div class="video-thumb">
-          <!-- REPLACE: AE / VFX video ID -->
-          <div class="video-placeholder"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><p>After Effects</p></div>
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/rvwz3L-l1TE" allowfullscreen loading="lazy"></iframe>
         </div>
-        <div class="card-body">
-          <p class="card-type">After Effects · VFX</p>
-          <p class="card-title">Motion &amp; VFX Edit</p>
-          <p class="card-desc">Camera movement, logo masking, and light VFX. Early After Effects work — line transition revealing colour grade.</p>
+        <div class="cb">
+          <p class="cb-type">After Effects · VFX</p>
+          <p class="cb-title">VFX / Motion Edit</p>
+          <p class="cb-desc">Camera movement, logo masking, light VFX. Line transition revealing colour grade.</p>
+        </div>
+      </div>
+
+      <!-- Placeholder for second AE video -->
+      <div class="card">
+        <div class="thumb vertical">
+          <div class="placeholder">
+            <div class="pi"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <p>Coming Soon</p>
+          </div>
+        </div>
+        <div class="cb">
+          <p class="cb-type">After Effects</p>
+          <p class="cb-title">AE Edit</p>
+          <p class="cb-desc">Uploading soon — replace placeholder with your YouTube ID.</p>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- ====== TIMELINES ====== -->
-  <div class="cat-section" id="cat-timeline">
+  <!-- ═══════════════ TIMELINES ═══════════════ -->
+  <div class="cat-panel" id="cat-timeline">
     <div class="cat-header">
       <span class="cat-title">Editing Timelines</span>
-      <span class="cat-desc">Screen recordings of Premiere Pro timelines — proof of process and workflow</span>
+      <span class="cat-desc">Premiere Pro screen recordings — proof of process, workflow, and structure</span>
     </div>
-    <div class="work-grid">
+    <div class="grid grid-2col">
 
-      <!-- Add all timeline recordings here -->
-      <div class="work-card">
-        <div class="video-thumb">
-          <!-- REPLACE: timeline recording video ID -->
+      <div class="card">
+        <div class="thumb">
           <iframe src="https://www.youtube.com/embed/xLbuiTQBH1g" allowfullscreen loading="lazy"></iframe>
-        <div class="card-body">
-          <p class="card-type">Process · Premiere Pro</p>
-          <p class="card-title">Timeline Recording of Kendrick Lamar Edit</p>
-          <p class="card-desc">Full Premiere Pro timeline — track layering, clip structure, and editing workflow.</p>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Process · Premiere Pro</p>
+          <p class="cb-title">Timeline Recording 01</p>
+          <p class="cb-desc">Full Premiere Pro timeline — track layering, clip structure, and editing workflow.</p>
         </div>
       </div>
 
-      <div class="work-card">
-        <div class="video-thumb">
-          <iframe src="https://www.youtube.com/embed/tK9NWKFNvXE" allowfullscreen loading="lazy"></iframe>
-        <div class="card-body">
-          <p class="card-type">Process · Premiere Pro</p>
-          <p class="card-title">Timeline Recording of Kanye Edit</p>
-          <p class="card-desc">Premiere Pro timeline walkthrough.</p>
-        </div>
-      </div>
- 
-       <div class="work-card">
-        <div class="video-thumb">
-          <!-- REPLACE: timeline recording video ID -->
-          <iframe src="https://www.youtube.com/embed/8rPr7Og6eIY" allowfullscreen loading="lazy"></iframe>
-        <div class="card-body">
-          <p class="card-type">Process · Premiere Pro</p>
-          <p class="card-title">Timeline Recording of Peter Dinklage Edit</p>
-          <p class="card-desc">Full Premiere Pro timeline — track layering, clip structure, and editing workflow.</p>
-        </div>
-      </div>
- 
-      <div class="work-card">
-        <div class="video-thumb">
-          <!-- REPLACE: timeline recording video ID -->
+      <div class="card">
+        <div class="thumb">
           <iframe src="https://www.youtube.com/embed/svs8akzGvho" allowfullscreen loading="lazy"></iframe>
-        <div class="card-body">
-          <p class="card-type">Process · Premiere Pro</p>
-          <p class="card-title">Timeline Recording of Kanye West Edit 2</p>
-          <p class="card-desc">Full Premiere Pro timeline.</p>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Process · Premiere Pro</p>
+          <p class="cb-title">Timeline Recording 02</p>
+          <p class="cb-desc">Premiere Pro timeline walkthrough.</p>
         </div>
       </div>
-      
+
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/8rPr7Og6eIY" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Process · Premiere Pro</p>
+          <p class="cb-title">Timeline Recording 03</p>
+          <p class="cb-desc">Premiere Pro timeline walkthrough.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/tK9NWKFNvXE" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Process · Premiere Pro</p>
+          <p class="cb-title">Timeline Recording 04</p>
+          <p class="cb-desc">Premiere Pro timeline walkthrough.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 
-</section>
+</div><!-- end work-section -->
 
 <hr />
 
 <!-- ABOUT -->
-<section id="about">
+<div class="other-section" id="about">
   <p class="section-label">About</p>
   <div class="about-grid">
     <div class="about-text">
@@ -635,24 +697,24 @@
       <p>I got into editing through a genuine love of film and storytelling. Over time that turned into hands-on practice across reels, vlogs, colour grading, and social media content — learning through doing rather than courses.</p>
       <p>Currently open to on-site internships and editing roles in Delhi NCR. Comfortable working to a brief, taking feedback fast, and delivering clean work on time.</p>
     </div>
-    <div class="about-facts">
-      <div class="fact"><p class="fact-label">Primary Tool</p><p class="fact-value">Adobe Premiere Pro</p></div>
-      <div class="fact"><p class="fact-label">Also use</p><p class="fact-value">After Effects · CapCut</p></div>
-      <div class="fact"><p class="fact-label">Specialities</p><p class="fact-value">Reels · Vlogs · Cinematic Edits · Colour Grading</p></div>
-      <div class="fact"><p class="fact-label">Available for</p><p class="fact-value">On-site Delhi NCR · Remote</p></div>
-      <div class="fact"><p class="fact-label">Based in</p><p class="fact-value">Delhi, India</p></div>
+    <div class="facts">
+      <div class="fact"><p class="fact-l">Primary Tool</p><p class="fact-v">Adobe Premiere Pro</p></div>
+      <div class="fact"><p class="fact-l">Also use</p><p class="fact-v">After Effects · CapCut</p></div>
+      <div class="fact"><p class="fact-l">Specialities</p><p class="fact-v">Reels · Vlogs · Cinematic Edits · Colour Grading</p></div>
+      <div class="fact"><p class="fact-l">Available for</p><p class="fact-v">On-site Delhi NCR · Remote</p></div>
+      <div class="fact"><p class="fact-l">Based in</p><p class="fact-v">Delhi, India</p></div>
     </div>
   </div>
-</section>
+</div>
 
 <hr />
 
 <!-- SKILLS -->
-<section>
+<div class="other-section">
   <p class="section-label">Skills</p>
   <div class="skills-grid">
     <div class="skill-card">
-      <p class="skill-category">Editing</p>
+      <p class="skill-cat">Editing</p>
       <div class="skill-list">
         <span class="skill-item">Cut &amp; pacing</span>
         <span class="skill-item">Colour correction</span>
@@ -661,7 +723,7 @@
       </div>
     </div>
     <div class="skill-card">
-      <p class="skill-category">Post-production</p>
+      <p class="skill-cat">Post-production</p>
       <div class="skill-list">
         <span class="skill-item">Subtitles &amp; captions</span>
         <span class="skill-item">Light VFX (After Effects)</span>
@@ -670,16 +732,16 @@
       </div>
     </div>
     <div class="skill-card">
-      <p class="skill-category">Formats</p>
+      <p class="skill-cat">Formats</p>
       <div class="skill-list">
         <span class="skill-item">Short-form vertical (Reels)</span>
         <span class="skill-item">Long-form vlog</span>
-        <span class="skill-item">Cinematic / motivational edits</span>
+        <span class="skill-item">Cinematic / motivational</span>
         <span class="skill-item">Music-driven edits</span>
       </div>
     </div>
     <div class="skill-card">
-      <p class="skill-category">Workflow</p>
+      <p class="skill-cat">Workflow</p>
       <div class="skill-list">
         <span class="skill-item">Brief-to-delivery</span>
         <span class="skill-item">Revision turnaround</span>
@@ -688,27 +750,27 @@
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <hr />
 
 <!-- CONTACT -->
-<section id="contact">
+<div class="other-section" id="contact">
   <div class="contact-inner">
     <h2>Let's work together</h2>
-    <p>Open to on-site internships and editing roles in Delhi NCR. Also available for freelance and remote work.</p>
+    <p>Open to on-site internships and editing roles in Delhi NCR. Available for freelance and remote work too.</p>
     <div class="contact-links">
-      <a href="mailto:sumitkumar854468@gmail.com" class="contact-btn primary">
+      <a href="mailto:sumitkumar854468@gmail.com" class="btn primary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         Email me
       </a>
-      <a href="https://instagram.com/bettercallsmyt" target="_blank" rel="noopener" class="contact-btn">
+      <a href="https://instagram.com/bettercallsmyt" target="_blank" rel="noopener" class="btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         Instagram
       </a>
     </div>
   </div>
-</section>
+</div>
 
 <footer>
   <p>© 2026 bettercallsmyt · Delhi, India</p>
@@ -716,7 +778,7 @@
 
 <script>
   function showCat(cat, btn) {
-    document.querySelectorAll('.cat-section').forEach(s => s.classList.remove('visible'));
+    document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('visible'));
     document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
     document.getElementById('cat-' + cat).classList.add('visible');
     btn.classList.add('active');
