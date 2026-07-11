@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>bettercallsmyt — Video Editor</title>
-  <meta name="description" content="Video editor specialising in short-form reels, cinematic edits, colour grading and long-form content. Based in Delhi." />
+  <title>bettercallsmyt — Video Editor &amp; Graphic Designer</title>
+  <meta name="description" content="Video editor and graphic designer specialising in short-form reels, cinematic edits, colour grading and poster design. Based in Delhi." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -14,6 +17,9 @@
       --muted: #666;
       --faint: #999;
       --border: #e5e5e2;
+      --accent: #c1443a;
+      --accent-dim: rgba(193,68,58,.10);
+      --font-display: 'Fraunces', Georgia, serif;
     }
     body { font-family: 'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; }
     a { color:inherit; text-decoration:none; }
@@ -122,14 +128,71 @@
     footer { border-top:1px solid var(--border); padding:2rem; text-align:center; font-size:13px; color:var(--faint); }
 
     @media(max-width:720px) {
-      .grid,.set-grid { grid-template-columns:1fr; }
-      .card.wide,.card.full { grid-column:span 1; }
+      .grid,.set-grid,.ggrid { grid-template-columns:1fr; }
+      .card.wide,.card.full,.gcard.wide { grid-column:span 1; }
       .vlog-wrap { grid-template-columns:1fr; }
       .about-grid { grid-template-columns:1fr; }
       .nav-links { display:none; }
       .hero,.work-section,.other-section { padding-left:1.25rem; padding-right:1.25rem; }
       .hero { padding-top:4rem; }
+      .exp-head { flex-direction:column; align-items:flex-start; gap:6px; }
     }
+
+    /* ═══ SIGNATURE: REC BADGE ═══ */
+    .current-badge { display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:500; color:var(--accent); background:var(--accent-dim); border:1px solid rgba(193,68,58,.22); padding:6px 14px 6px 12px; border-radius:100px; margin-bottom:1.5rem; transition:background .15s; }
+    .current-badge:hover { background:rgba(193,68,58,.16); }
+    .rec-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); flex-shrink:0; animation:rec-pulse 1.7s ease-in-out infinite; }
+    @keyframes rec-pulse { 0%,100%{ opacity:1; box-shadow:0 0 0 0 rgba(193,68,58,.45); } 50%{ opacity:.6; box-shadow:0 0 0 5px rgba(193,68,58,0); } }
+    @media (prefers-reduced-motion:reduce) { .rec-dot{ animation:none; } }
+
+    /* Display font for headings */
+    .hero h1 { font-family:var(--font-display); font-weight:500; }
+    .hero h1 span { font-style:italic; }
+    .cat-title, .exp-role, .contact-inner h2 { font-family:var(--font-display); }
+
+    /* ═══ DISCIPLINE SWITCH ═══ */
+    .discipline-switch { display:flex; align-items:baseline; gap:14px; margin-bottom:2.5rem; }
+    .discipline-btn { font-family:var(--font-display); font-size:22px; background:none; border:none; padding:0; cursor:pointer; color:var(--faint); transition:color .15s; }
+    .discipline-btn.active { color:var(--text); font-style:italic; }
+    .discipline-btn:hover { color:var(--text); }
+    .discipline-sep { color:var(--border); font-size:20px; }
+    .discipline-panel { display:none; }
+    .discipline-panel.visible { display:block; }
+
+    /* ═══ GRAPHIC DESIGN TABS (mirrors video tabs, separate namespace) ═══ */
+    .gcat-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:2.75rem; }
+    .gcat-tab { font-size:13px; font-weight:500; padding:6px 16px; border-radius:100px; border:1px solid var(--border); background:var(--surface); color:var(--muted); cursor:pointer; transition:all .15s; }
+    .gcat-tab:hover { border-color:#bbb; color:var(--text); }
+    .gcat-tab.active { background:var(--text); color:#fff; border-color:var(--text); }
+    .gcat-panel { display:none; }
+    .gcat-panel.visible { display:block; }
+
+    /* ═══ GRAPHIC CARDS ═══ */
+    .ggrid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-bottom:2rem; }
+    .gcard { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:transform .18s,box-shadow .18s; }
+    .gcard:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,.07); }
+    .gcard.wide { grid-column:span 2; }
+    .img-thumb { position:relative; width:100%; padding-bottom:100%; background:#eeece7; overflow:hidden; }
+    .img-thumb img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; cursor:zoom-in; }
+    .img-fallback { display:none; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; gap:8px; background:#eeece7; }
+    .img-thumb.img-missing .img-fallback { display:flex; }
+    .img-fallback .pi { font-size:22px; opacity:.35; }
+    .img-fallback p { font-size:11px; color:var(--faint); font-family:monospace; }
+
+    /* ═══ LIGHTBOX ═══ */
+    .lightbox { position:fixed; inset:0; background:rgba(20,19,17,.92); display:none; align-items:center; justify-content:center; z-index:1000; padding:2rem; cursor:zoom-out; }
+    .lightbox.visible { display:flex; }
+    .lightbox img { max-width:100%; max-height:100%; border-radius:6px; box-shadow:0 20px 60px rgba(0,0,0,.4); }
+
+    /* ═══ EXPERIENCE CARD ═══ */
+    .exp-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.75rem; }
+    .exp-head { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:1.1rem; padding-bottom:1.1rem; border-bottom:1px solid var(--border); }
+    .exp-role { font-size:19px; font-weight:500; color:var(--text); margin-bottom:3px; }
+    .exp-company { font-size:14px; color:var(--muted); }
+    .exp-date { font-size:12px; letter-spacing:.05em; text-transform:uppercase; color:var(--faint); white-space:nowrap; }
+    .exp-list { list-style:none; display:flex; flex-direction:column; gap:.65rem; }
+    .exp-list li { position:relative; padding-left:1.1rem; font-size:14.5px; color:var(--muted); line-height:1.6; }
+    .exp-list li::before { content:''; position:absolute; left:0; top:.55em; width:5px; height:5px; border-radius:50%; background:var(--accent); }
   </style>
 </head>
 <body>
@@ -139,6 +202,7 @@
     <span class="nav-logo">bettercallsmyt</span>
     <ul class="nav-links">
       <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -147,17 +211,18 @@
 
 <!-- HERO -->
 <div class="hero">
-  <p class="hero-label">Video Editor — Delhi, India</p>
+  <a href="#experience" class="current-badge"><span class="rec-dot"></span>Currently interning at Cresigns Studio, Delhi</a>
+  <p class="hero-label">Video Editor &amp; Graphic Designer — Delhi, India</p>
   <h1>Editing that makes<br><span>people watch twice.</span></h1>
-  <p class="hero-desc">Self-taught editor working across cinematic edits, short-form reels, colour grading, and long-form content. From brief to final export.</p>
+  <p class="hero-desc">Self-taught editor and designer working across cinematic edits, short-form reels, colour grading, and poster design. From brief to final export.</p>
   <div class="hero-tags">
     <span class="tag">Adobe Premiere Pro</span>
     <span class="tag">After Effects</span>
+    <span class="tag">Photoshop</span>
     <span class="tag">Short-form Reels</span>
     <span class="tag">Cinematic Edits</span>
     <span class="tag">Colour Grading</span>
-    <span class="tag">Vlogs</span>
-    <span class="tag">CapCut</span>
+    <span class="tag">Poster Design</span>
   </div>
   <a href="#work" class="hero-cta">
     View my work
@@ -170,6 +235,14 @@
 <!-- WORK -->
 <div class="work-section" id="work">
   <p class="section-label">Selected Work</p>
+
+  <div class="discipline-switch">
+    <button class="discipline-btn active" onclick="showDiscipline('video',this)">Video Editing</button>
+    <span class="discipline-sep">/</span>
+    <button class="discipline-btn" onclick="showDiscipline('graphic',this)">Graphic Design</button>
+  </div>
+
+  <div class="discipline-panel visible" id="discipline-video">
 
   <div class="cat-tabs">
     <button class="cat-tab active" onclick="showCat('all',this)">All</button>
@@ -695,7 +768,231 @@
     </div>
   </div>
 
+  </div><!-- end discipline-video -->
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- GRAPHIC DESIGN — add images by uploading to  -->
+  <!-- an "images" folder in your repo with these   -->
+  <!-- exact filenames. No HTML editing needed —    -->
+  <!-- once the file exists it shows automatically. -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="discipline-panel" id="discipline-graphic">
+
+    <div class="gcat-tabs">
+      <button class="gcat-tab active" onclick="showGCat('gall',this)">All</button>
+      <button class="gcat-tab" onclick="showGCat('posters',this)">Posters &amp; Key Art</button>
+      <button class="gcat-tab" onclick="showGCat('editorial',this)">Editorial</button>
+      <button class="gcat-tab" onclick="showGCat('productads',this)">Product Ads</button>
+      <button class="gcat-tab" onclick="showGCat('landmarks',this)">Delhi Landmarks</button>
+    </div>
+
+    <!-- ═══ ALL ═══ -->
+    <div class="gcat-panel visible" id="gcat-gall">
+      <div class="ggrid">
+
+        <div class="gcard wide">
+          <div class="img-thumb">
+            <img src="images/rockstar-poster.jpg" alt="Rockstar brutalist movie poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/rockstar-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Rockstar — Brutalist Poster</p>
+            <p class="cb-desc">Bollywood film poster with a brutalist, WOLF-inspired aesthetic. Typography, layer masking, duotone grade.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/fifa-magazine-cover.jpg" alt="FIFA World Cup magazine cover" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/fifa-magazine-cover.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Editorial</p>
+            <p class="cb-title">FIFA World Cup — Magazine Cover</p>
+            <p class="cb-desc">Guardian-style editorial magazine cover layout.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/puma-neymar-poster.jpg" alt="Puma Neymar product poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/puma-neymar-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Product Ad</p>
+            <p class="cb-title">Puma × Neymar — Boot Poster</p>
+            <p class="cb-desc">Nike-style football boot product poster.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/zebronics-thunder-pro.jpg" alt="Zebronics Thunder Pro ad" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/zebronics-thunder-pro.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Product Ad</p>
+            <p class="cb-title">Zebronics Thunder Pro</p>
+            <p class="cb-desc">Japanese-style product advertisement.</p>
+          </div>
+        </div>
+
+        <div class="gcard wide">
+          <div class="set-grid" style="grid-template-columns:repeat(3,1fr);">
+            <div class="img-thumb" style="border-radius:8px;">
+              <img src="images/delhi-landmark-01.jpg" alt="Delhi landmark poster 1" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+              <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-01.jpg</p></div>
+            </div>
+            <div class="img-thumb" style="border-radius:8px;">
+              <img src="images/delhi-landmark-02.jpg" alt="Delhi landmark poster 2" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+              <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-02.jpg</p></div>
+            </div>
+            <div class="img-thumb" style="border-radius:8px;">
+              <img src="images/delhi-landmark-03.jpg" alt="Delhi landmark poster 3" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+              <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-03.jpg</p></div>
+            </div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Series</p>
+            <p class="cb-title">Delhi Landmarks — Heritage Series</p>
+            <p class="cb-desc">Brutalist / Japanese-style poster series of Delhi landmarks, made for Instagram.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ POSTERS & KEY ART ═══ -->
+    <div class="gcat-panel" id="gcat-posters">
+      <div class="cat-header">
+        <span class="cat-title">Posters &amp; Key Art</span>
+        <span class="cat-desc">Film and brand poster design — typography, layer masking, duotone grading</span>
+      </div>
+      <div class="ggrid">
+        <div class="gcard wide">
+          <div class="img-thumb">
+            <img src="images/rockstar-poster.jpg" alt="Rockstar brutalist movie poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/rockstar-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Rockstar — Brutalist Poster</p>
+            <p class="cb-desc">Bollywood film poster with a brutalist, WOLF-inspired aesthetic. Typography, layer masking, duotone grade.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ EDITORIAL ═══ -->
+    <div class="gcat-panel" id="gcat-editorial">
+      <div class="cat-header">
+        <span class="cat-title">Editorial</span>
+        <span class="cat-desc">Magazine cover and editorial layout design</span>
+      </div>
+      <div class="ggrid">
+        <div class="gcard wide">
+          <div class="img-thumb">
+            <img src="images/fifa-magazine-cover.jpg" alt="FIFA World Cup magazine cover" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/fifa-magazine-cover.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Editorial</p>
+            <p class="cb-title">FIFA World Cup — Magazine Cover</p>
+            <p class="cb-desc">Guardian-style editorial magazine cover layout.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PRODUCT ADS ═══ -->
+    <div class="gcat-panel" id="gcat-productads">
+      <div class="cat-header">
+        <span class="cat-title">Product Ads</span>
+        <span class="cat-desc">Product advertisement and brand poster design</span>
+      </div>
+      <div class="ggrid">
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/puma-neymar-poster.jpg" alt="Puma Neymar product poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/puma-neymar-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Product Ad</p>
+            <p class="cb-title">Puma × Neymar — Boot Poster</p>
+            <p class="cb-desc">Nike-style football boot product poster.</p>
+          </div>
+        </div>
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/zebronics-thunder-pro.jpg" alt="Zebronics Thunder Pro ad" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/zebronics-thunder-pro.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Product Ad</p>
+            <p class="cb-title">Zebronics Thunder Pro</p>
+            <p class="cb-desc">Japanese-style product advertisement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ DELHI LANDMARKS ═══ -->
+    <div class="gcat-panel" id="gcat-landmarks">
+      <div class="cat-header">
+        <span class="cat-title">Delhi Landmarks — Heritage Series</span>
+        <span class="cat-desc">Brutalist / Japanese-style poster series of Delhi landmarks, made for Instagram</span>
+      </div>
+      <div class="ggrid">
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/delhi-landmark-01.jpg" alt="Delhi landmark poster 1" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-01.jpg</p></div>
+          </div>
+          <div class="cb"><p class="cb-type">Poster</p><p class="cb-title">Landmark 01</p></div>
+        </div>
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/delhi-landmark-02.jpg" alt="Delhi landmark poster 2" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-02.jpg</p></div>
+          </div>
+          <div class="cb"><p class="cb-type">Poster</p><p class="cb-title">Landmark 02</p></div>
+        </div>
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/delhi-landmark-03.jpg" alt="Delhi landmark poster 3" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-03.jpg</p></div>
+          </div>
+          <div class="cb"><p class="cb-type">Poster</p><p class="cb-title">Landmark 03</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end discipline-graphic -->
+
 </div><!-- end work-section -->
+
+<hr />
+
+<!-- EXPERIENCE -->
+<div class="other-section" id="experience">
+  <p class="section-label">Experience</p>
+  <div class="exp-card">
+    <div class="exp-head">
+      <div>
+        <p class="exp-role">Video Editing Intern</p>
+        <p class="exp-company">Cresigns Studio · Delhi (On-site)</p>
+      </div>
+      <p class="exp-date">28 May – 1 July 2026</p>
+    </div>
+    <ul class="exp-list">
+      <li>Edited short-form reels, social clips, and promos for client brands using Adobe Premiere Pro and After Effects.</li>
+      <li>Worked across Adobe Creative Suite — Premiere Pro, After Effects, and Photoshop — for edits, motion graphics, and graphic assets.</li>
+      <li>Assisted with AI-powered video workflows for generative and product-style content.</li>
+      <li>Delivered client-ready work on real production timelines in a fast-paced studio environment.</li>
+    </ul>
+  </div>
+</div>
 
 <hr />
 
@@ -704,15 +1001,15 @@
   <p class="section-label">About</p>
   <div class="about-grid">
     <div class="about-text">
-      <p>I'm a self-taught video editor based in Delhi, with a background in creating motivational and cinematic edits — the kind that make people stop scrolling.</p>
-      <p>I got into editing through a genuine love of film and storytelling. Over time that turned into hands-on practice across reels, vlogs, colour grading, and social media content — learning through doing rather than courses.</p>
-      <p>Currently open to on-site internships and editing roles in Delhi NCR. Comfortable working to a brief, taking feedback fast, and delivering clean work on time.</p>
+      <p>I'm a self-taught video editor and graphic designer based in Delhi, with a background in creating motivational and cinematic edits — the kind that make people stop scrolling.</p>
+      <p>I got into editing through a genuine love of film and storytelling, and picked up graphic design alongside it — posters, product ads, and editorial layouts. Learning through doing rather than courses.</p>
+      <p>Currently interning at Cresigns Studio in Delhi. Comfortable working to a brief, taking feedback fast, and delivering clean work on time.</p>
     </div>
     <div class="facts">
-      <div class="fact"><p class="fact-l">Primary Tool</p><p class="fact-v">Adobe Premiere Pro</p></div>
+      <div class="fact"><p class="fact-l">Primary Tools</p><p class="fact-v">Adobe Premiere Pro · Photoshop</p></div>
       <div class="fact"><p class="fact-l">Also use</p><p class="fact-v">After Effects · CapCut</p></div>
-      <div class="fact"><p class="fact-l">Specialities</p><p class="fact-v">Reels · Vlogs · Cinematic Edits · Colour Grading</p></div>
-      <div class="fact"><p class="fact-l">Available for</p><p class="fact-v">On-site Delhi NCR · Remote</p></div>
+      <div class="fact"><p class="fact-l">Specialities</p><p class="fact-v">Reels · Cinematic Edits · Colour Grading · Poster Design</p></div>
+      <div class="fact"><p class="fact-l">Currently at</p><p class="fact-v">Cresigns Studio, Delhi</p></div>
       <div class="fact"><p class="fact-l">Based in</p><p class="fact-v">Delhi, India</p></div>
     </div>
   </div>
@@ -760,6 +1057,15 @@
         <span class="skill-item">Feedback integration</span>
       </div>
     </div>
+    <div class="skill-card">
+      <p class="skill-cat">Graphic Design</p>
+      <div class="skill-list">
+        <span class="skill-item">Poster &amp; key art design</span>
+        <span class="skill-item">Layer masking &amp; duotone grading</span>
+        <span class="skill-item">Typography &amp; layout</span>
+        <span class="skill-item">Product ad design</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -787,12 +1093,38 @@
   <p>© 2026 bettercallsmyt · Delhi, India</p>
 </footer>
 
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <script>
   function showCat(cat, btn) {
     document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('visible'));
     document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
     document.getElementById('cat-' + cat).classList.add('visible');
     btn.classList.add('active');
+  }
+
+  function showDiscipline(which, btn) {
+    document.getElementById('discipline-video').classList.toggle('visible', which === 'video');
+    document.getElementById('discipline-graphic').classList.toggle('visible', which === 'graphic');
+    document.querySelectorAll('.discipline-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function showGCat(cat, btn) {
+    document.querySelectorAll('.gcat-panel').forEach(p => p.classList.remove('visible'));
+    document.querySelectorAll('.gcat-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('gcat-' + cat).classList.add('visible');
+    btn.classList.add('active');
+  }
+
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('visible');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('visible');
   }
 </script>
 
