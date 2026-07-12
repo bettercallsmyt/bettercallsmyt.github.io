@@ -211,7 +211,6 @@
 
 <!-- HERO -->
 <div class="hero">
-  <a href="#experience" class="current-badge"><span class="rec-dot"></span>Currently interning at Cresigns Studio, Delhi</a>
   <p class="hero-label">Video Editor &amp; Graphic Designer — Delhi, India</p>
   <h1>Editing that makes<br><span>people watch twice.</span></h1>
   <p class="hero-desc">Self-taught editor and designer working across cinematic edits, short-form reels, colour grading, and poster design. From brief to final export.</p>
@@ -781,7 +780,6 @@
     <div class="gcat-tabs">
       <button class="gcat-tab active" onclick="showGCat('gall',this)">All</button>
       <button class="gcat-tab" onclick="showGCat('posters',this)">Posters &amp; Key Art</button>
-      <button class="gcat-tab" onclick="showGCat('editorial',this)">Editorial</button>
       <button class="gcat-tab" onclick="showGCat('productads',this)">Product Ads</button>
       <button class="gcat-tab" onclick="showGCat('landmarks',this)">Delhi Landmarks</button>
     </div>
@@ -792,25 +790,37 @@
 
         <div class="gcard wide">
           <div class="img-thumb">
+            <img src="images/into-the-wild-poster.jpg" alt="Into the Wild movie poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/into-the-wild-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Into the Wild — Movie Poster</p>
+            <p class="cb-desc">Typography, layer masking, and duotone grading.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
             <img src="images/rockstar-poster.jpg" alt="Rockstar brutalist movie poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
             <div class="img-fallback"><div class="pi">🖼</div><p>images/rockstar-poster.jpg</p></div>
           </div>
           <div class="cb">
             <p class="cb-type">Poster Design</p>
             <p class="cb-title">Rockstar — Brutalist Poster</p>
-            <p class="cb-desc">Bollywood film poster with a brutalist, WOLF-inspired aesthetic. Typography, layer masking, duotone grade.</p>
+            <p class="cb-desc">Bollywood film poster with a brutalist, WOLF-inspired aesthetic.</p>
           </div>
         </div>
 
         <div class="gcard">
           <div class="img-thumb">
-            <img src="images/fifa-magazine-cover.jpg" alt="FIFA World Cup magazine cover" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
-            <div class="img-fallback"><div class="pi">🖼</div><p>images/fifa-magazine-cover.jpg</p></div>
+            <img src="images/adidas-boots-poster.jpg" alt="Adidas boots product poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/adidas-boots-poster.jpg</p></div>
           </div>
           <div class="cb">
-            <p class="cb-type">Editorial</p>
-            <p class="cb-title">FIFA World Cup — Magazine Cover</p>
-            <p class="cb-desc">Guardian-style editorial magazine cover layout.</p>
+            <p class="cb-type">Product Ad</p>
+            <p class="cb-title">Adidas — Boots Poster</p>
+            <p class="cb-desc">Football boot product poster design.</p>
           </div>
         </div>
 
@@ -822,7 +832,7 @@
           <div class="cb">
             <p class="cb-type">Product Ad</p>
             <p class="cb-title">Puma × Neymar — Boot Poster</p>
-            <p class="cb-desc">Nike-style football boot product poster.</p>
+            <p class="cb-desc">Nike-style football boot poster, made for a friend.</p>
           </div>
         </div>
 
@@ -839,7 +849,7 @@
         </div>
 
         <div class="gcard wide">
-          <div class="set-grid" style="grid-template-columns:repeat(3,1fr);">
+          <div class="set-grid" style="grid-template-columns:repeat(4,1fr);">
             <div class="img-thumb" style="border-radius:8px;">
               <img src="images/delhi-landmark-01.jpg" alt="Delhi landmark poster 1" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
               <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-01.jpg</p></div>
@@ -852,11 +862,15 @@
               <img src="images/delhi-landmark-03.jpg" alt="Delhi landmark poster 3" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
               <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-03.jpg</p></div>
             </div>
+            <div class="img-thumb" style="border-radius:8px;">
+              <img src="images/delhi-landmark-04.jpg" alt="Delhi landmark poster 4" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+              <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-04.jpg</p></div>
+            </div>
           </div>
           <div class="cb">
             <p class="cb-type">Poster Series</p>
             <p class="cb-title">Delhi Landmarks — Heritage Series</p>
-            <p class="cb-desc">Brutalist / Japanese-style poster series of Delhi landmarks, made for Instagram.</p>
+            <p class="cb-desc">Same poster design applied across 4 different Delhi landmarks, made for Instagram.</p>
           </div>
         </div>
 
@@ -867,10 +881,21 @@
     <div class="gcat-panel" id="gcat-posters">
       <div class="cat-header">
         <span class="cat-title">Posters &amp; Key Art</span>
-        <span class="cat-desc">Film and brand poster design — typography, layer masking, duotone grading</span>
+        <span class="cat-desc">Film poster design — typography, layer masking, duotone grading</span>
       </div>
-      <div class="ggrid">
-        <div class="gcard wide">
+      <div class="ggrid grid-2col">
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/into-the-wild-poster.jpg" alt="Into the Wild movie poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/into-the-wild-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Into the Wild — Movie Poster</p>
+            <p class="cb-desc">Typography, layer masking, and duotone grading.</p>
+          </div>
+        </div>
+        <div class="gcard">
           <div class="img-thumb">
             <img src="images/rockstar-poster.jpg" alt="Rockstar brutalist movie poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
             <div class="img-fallback"><div class="pi">🖼</div><p>images/rockstar-poster.jpg</p></div>
@@ -878,28 +903,7 @@
           <div class="cb">
             <p class="cb-type">Poster Design</p>
             <p class="cb-title">Rockstar — Brutalist Poster</p>
-            <p class="cb-desc">Bollywood film poster with a brutalist, WOLF-inspired aesthetic. Typography, layer masking, duotone grade.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══ EDITORIAL ═══ -->
-    <div class="gcat-panel" id="gcat-editorial">
-      <div class="cat-header">
-        <span class="cat-title">Editorial</span>
-        <span class="cat-desc">Magazine cover and editorial layout design</span>
-      </div>
-      <div class="ggrid">
-        <div class="gcard wide">
-          <div class="img-thumb">
-            <img src="images/fifa-magazine-cover.jpg" alt="FIFA World Cup magazine cover" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
-            <div class="img-fallback"><div class="pi">🖼</div><p>images/fifa-magazine-cover.jpg</p></div>
-          </div>
-          <div class="cb">
-            <p class="cb-type">Editorial</p>
-            <p class="cb-title">FIFA World Cup — Magazine Cover</p>
-            <p class="cb-desc">Guardian-style editorial magazine cover layout.</p>
+            <p class="cb-desc">Bollywood film poster with a brutalist, WOLF-inspired aesthetic.</p>
           </div>
         </div>
       </div>
@@ -914,13 +918,24 @@
       <div class="ggrid">
         <div class="gcard">
           <div class="img-thumb">
+            <img src="images/adidas-boots-poster.jpg" alt="Adidas boots product poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/adidas-boots-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Product Ad</p>
+            <p class="cb-title">Adidas — Boots Poster</p>
+            <p class="cb-desc">Football boot product poster design.</p>
+          </div>
+        </div>
+        <div class="gcard">
+          <div class="img-thumb">
             <img src="images/puma-neymar-poster.jpg" alt="Puma Neymar product poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
             <div class="img-fallback"><div class="pi">🖼</div><p>images/puma-neymar-poster.jpg</p></div>
           </div>
           <div class="cb">
             <p class="cb-type">Product Ad</p>
             <p class="cb-title">Puma × Neymar — Boot Poster</p>
-            <p class="cb-desc">Nike-style football boot product poster.</p>
+            <p class="cb-desc">Nike-style football boot poster, made for a friend.</p>
           </div>
         </div>
         <div class="gcard">
@@ -941,9 +956,9 @@
     <div class="gcat-panel" id="gcat-landmarks">
       <div class="cat-header">
         <span class="cat-title">Delhi Landmarks — Heritage Series</span>
-        <span class="cat-desc">Brutalist / Japanese-style poster series of Delhi landmarks, made for Instagram</span>
+        <span class="cat-desc">Same poster design applied across 4 different Delhi landmarks, made for Instagram</span>
       </div>
-      <div class="ggrid">
+      <div class="ggrid grid-4col">
         <div class="gcard">
           <div class="img-thumb">
             <img src="images/delhi-landmark-01.jpg" alt="Delhi landmark poster 1" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
@@ -965,6 +980,13 @@
           </div>
           <div class="cb"><p class="cb-type">Poster</p><p class="cb-title">Landmark 03</p></div>
         </div>
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/delhi-landmark-04.jpg" alt="Delhi landmark poster 4" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-04.jpg</p></div>
+          </div>
+          <div class="cb"><p class="cb-type">Poster</p><p class="cb-title">Landmark 04</p></div>
+        </div>
       </div>
     </div>
 
@@ -983,7 +1005,7 @@
         <p class="exp-role">Video Editing Intern</p>
         <p class="exp-company">Cresigns Studio · Delhi (On-site)</p>
       </div>
-      <p class="exp-date">28 May – 1 July 2026</p>
+      <p class="exp-date">28 May – 8 July 2026</p>
     </div>
     <ul class="exp-list">
       <li>Edited short-form reels, social clips, and promos for client brands using Adobe Premiere Pro and After Effects.</li>
@@ -1003,13 +1025,13 @@
     <div class="about-text">
       <p>I'm a self-taught video editor and graphic designer based in Delhi, with a background in creating motivational and cinematic edits — the kind that make people stop scrolling.</p>
       <p>I got into editing through a genuine love of film and storytelling, and picked up graphic design alongside it — posters, product ads, and editorial layouts. Learning through doing rather than courses.</p>
-      <p>Currently interning at Cresigns Studio in Delhi. Comfortable working to a brief, taking feedback fast, and delivering clean work on time.</p>
+      <p>Currently open to on-site internships and editing roles in Delhi NCR. Comfortable working to a brief, taking feedback fast, and delivering clean work on time.</p>
     </div>
     <div class="facts">
       <div class="fact"><p class="fact-l">Primary Tools</p><p class="fact-v">Adobe Premiere Pro · Photoshop</p></div>
       <div class="fact"><p class="fact-l">Also use</p><p class="fact-v">After Effects · CapCut</p></div>
       <div class="fact"><p class="fact-l">Specialities</p><p class="fact-v">Reels · Cinematic Edits · Colour Grading · Poster Design</p></div>
-      <div class="fact"><p class="fact-l">Currently at</p><p class="fact-v">Cresigns Studio, Delhi</p></div>
+      <div class="fact"><p class="fact-l">Available for</p><p class="fact-v">On-site Delhi NCR · Remote</p></div>
       <div class="fact"><p class="fact-l">Based in</p><p class="fact-v">Delhi, India</p></div>
     </div>
   </div>
