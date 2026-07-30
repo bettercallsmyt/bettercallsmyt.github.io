@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bettercallsmyt — Video Editor &amp; Graphic Designer</title>
+  <meta name="description" content="Video editor and graphic designer specialising in short-form reels, cinematic edits, colour grading and poster design. Based in Delhi." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f9f9f7;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --muted: #666;
+      --faint: #999;
+      --border: #e5e5e2;
+      --accent: #c1443a;
+      --accent-dim: rgba(193,68,58,.10);
+      --font-display: 'Fraunces', Georgia, serif;
+    }
+    body { font-family: 'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+
+    /* NAV */
+    nav { position:sticky; top:0; background:rgba(249,249,247,0.93); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); z-index:100; padding:0 2rem; }
+    .nav-inner { max-width:980px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:56px; }
+    .nav-logo { font-size:15px; font-weight:600; letter-spacing:-0.02em; }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a { font-size:14px; color:var(--muted); transition:color .15s; }
+    .nav-links a:hover { color:var(--text); }
+
+    /* HERO */
+    .hero { max-width:980px; margin:0 auto; padding:7rem 2rem 5rem; }
+    .hero-label { font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); margin-bottom:1.25rem; }
+    .hero h1 { font-size:clamp(2.4rem,6vw,4rem); font-weight:700; letter-spacing:-.03em; line-height:1.1; margin-bottom:1.5rem; }
+    .hero h1 span { color:var(--faint); }
+    .hero-desc { font-size:17px; color:var(--muted); max-width:540px; line-height:1.75; margin-bottom:2.5rem; }
+    .hero-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:2.5rem; }
+    .tag { font-size:13px; padding:5px 13px; border:1px solid var(--border); border-radius:100px; color:var(--muted); background:var(--surface); }
+    .hero-cta { display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:500; background:var(--text); color:#fff; padding:11px 22px; border-radius:8px; transition:opacity .15s; }
+    .hero-cta:hover { opacity:.82; }
+    .hero-cta svg { width:16px; height:16px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+    hr { border:none; border-top:1px solid var(--border); }
+
+    /* WORK SECTION */
+    .work-section { max-width:980px; margin:0 auto; padding:5rem 2rem; }
+    .section-label { font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); margin-bottom:1.75rem; }
+
+    /* TABS */
+    .cat-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:2.75rem; }
+    .cat-tab { font-size:13px; font-weight:500; padding:6px 16px; border-radius:100px; border:1px solid var(--border); background:var(--surface); color:var(--muted); cursor:pointer; transition:all .15s; user-select:none; }
+    .cat-tab:hover { border-color:#bbb; color:var(--text); }
+    .cat-tab.active { background:var(--text); color:#fff; border-color:var(--text); }
+
+    /* CATEGORY PANELS */
+    .cat-panel { display:none; }
+    .cat-panel.visible { display:block; }
+    .cat-header { margin-bottom:1.5rem; }
+    .cat-title { font-size:19px; font-weight:600; letter-spacing:-.01em; display:block; margin-bottom:4px; }
+    .cat-desc { font-size:14px; color:var(--faint); display:block; }
+
+    /* GRID */
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-bottom:2rem; }
+    .grid-2col { grid-template-columns:repeat(2,1fr); }
+    .grid-4col { grid-template-columns:repeat(4,1fr); }
+
+    /* CARDS */
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:transform .18s,box-shadow .18s; }
+    .card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,.07); }
+    .card.wide { grid-column:span 2; }
+    .card.full { grid-column:1/-1; }
+
+    /* THUMB */
+    .thumb { position:relative; width:100%; padding-bottom:56.25%; background:#111; overflow:hidden; }
+    .thumb.vertical { padding-bottom:177.78%; } /* 9:16 for shorts */
+    .thumb iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
+    .placeholder { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:#111; }
+    .placeholder .pi { width:44px; height:44px; border-radius:50%; border:1.5px solid rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; }
+    .placeholder .pi svg { width:18px; height:18px; fill:rgba(255,255,255,.5); margin-left:2px; }
+    .placeholder p { font-size:11px; color:rgba(255,255,255,.25); letter-spacing:.04em; }
+
+    /* CARD BODY */
+    .cb { padding:.9rem 1rem 1rem; }
+    .cb-type { font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint); margin-bottom:3px; }
+    .cb-title { font-size:14px; font-weight:500; color:var(--text); margin-bottom:3px; }
+    .cb-desc { font-size:13px; color:var(--muted); line-height:1.5; }
+
+    /* GROUPED SET (color grading 3-piece) */
+    .set { grid-column:1/-1; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.25rem; }
+    .set-label { font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint); margin-bottom:1rem; }
+    .set-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+    .set-item .thumb { border-radius:8px; overflow:hidden; }
+    .set-item .cb { padding:.7rem .1rem 0; }
+
+    /* VLOG LAYOUT */
+    .vlog-wrap { grid-column:1/-1; display:grid; grid-template-columns:2fr 1fr; gap:1.25rem; }
+    .vlog-side { display:flex; flex-direction:column; gap:1rem; }
+    .vlog-side .card { flex:1; }
+    .vlog-side .thumb { padding-bottom:75%; }
+
+    /* OTHER SECTIONS */
+    .other-section { max-width:980px; margin:0 auto; padding:5rem 2rem; }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
+    .about-text p { font-size:16px; color:var(--muted); line-height:1.75; margin-bottom:1rem; }
+    .about-text p:last-child { margin-bottom:0; }
+    .facts { display:flex; flex-direction:column; gap:1rem; }
+    .fact { padding:1rem 1.1rem; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+    .fact-l { font-size:11px; text-transform:uppercase; letter-spacing:.07em; color:var(--faint); margin-bottom:4px; }
+    .fact-v { font-size:14px; font-weight:500; color:var(--text); }
+    .skills-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1rem; }
+    .skill-card { padding:1.1rem; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+    .skill-cat { font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint); margin-bottom:8px; }
+    .skill-list { display:flex; flex-direction:column; gap:4px; }
+    .skill-item { font-size:14px; color:var(--text); }
+    .contact-inner { text-align:center; max-width:480px; margin:0 auto; }
+    .contact-inner h2 { font-size:2rem; font-weight:700; letter-spacing:-.02em; margin-bottom:.75rem; }
+    .contact-inner p { font-size:16px; color:var(--muted); margin-bottom:2rem; }
+    .contact-links { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:500; padding:10px 20px; border-radius:8px; border:1px solid var(--border); background:var(--surface); color:var(--text); transition:background .15s; }
+    .btn:hover { background:#f0f0ee; border-color:#ccc; }
+    .btn.primary { background:var(--text); color:#fff; border-color:var(--text); }
+    .btn.primary:hover { opacity:.82; }
+    .btn svg { width:16px; height:16px; }
+    footer { border-top:1px solid var(--border); padding:2rem; text-align:center; font-size:13px; color:var(--faint); }
+
+    @media(max-width:720px) {
+      .grid,.set-grid,.ggrid { grid-template-columns:1fr; }
+      .card.wide,.card.full,.gcard.wide { grid-column:span 1; }
+      .vlog-wrap { grid-template-columns:1fr; }
+      .about-grid { grid-template-columns:1fr; }
+      .nav-links { display:none; }
+      .hero,.work-section,.other-section { padding-left:1.25rem; padding-right:1.25rem; }
+      .hero { padding-top:4rem; }
+      .exp-head { flex-direction:column; align-items:flex-start; gap:6px; }
+    }
+
+    /* ═══ SIGNATURE: REC BADGE ═══ */
+    .current-badge { display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:500; color:var(--accent); background:var(--accent-dim); border:1px solid rgba(193,68,58,.22); padding:6px 14px 6px 12px; border-radius:100px; margin-bottom:1.5rem; transition:background .15s; }
+    .current-badge:hover { background:rgba(193,68,58,.16); }
+    .rec-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); flex-shrink:0; animation:rec-pulse 1.7s ease-in-out infinite; }
+    @keyframes rec-pulse { 0%,100%{ opacity:1; box-shadow:0 0 0 0 rgba(193,68,58,.45); } 50%{ opacity:.6; box-shadow:0 0 0 5px rgba(193,68,58,0); } }
+    @media (prefers-reduced-motion:reduce) { .rec-dot{ animation:none; } }
+
+    /* Display font for headings */
+    .hero h1 { font-family:var(--font-display); font-weight:500; }
+    .hero h1 span { font-style:italic; }
+    .cat-title, .exp-role, .contact-inner h2 { font-family:var(--font-display); }
+
+    /* ═══ DISCIPLINE SWITCH ═══ */
+    .discipline-switch { display:flex; align-items:baseline; gap:14px; margin-bottom:2.5rem; }
+    .discipline-btn { font-family:var(--font-display); font-size:22px; background:none; border:none; padding:0; cursor:pointer; color:var(--faint); transition:color .15s; }
+    .discipline-btn.active { color:var(--text); font-style:italic; }
+    .discipline-btn:hover { color:var(--text); }
+    .discipline-sep { color:var(--border); font-size:20px; }
+    .discipline-panel { display:none; }
+    .discipline-panel.visible { display:block; }
+
+    /* ═══ GRAPHIC DESIGN TABS (mirrors video tabs, separate namespace) ═══ */
+    .gcat-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:2.75rem; }
+    .gcat-tab { font-size:13px; font-weight:500; padding:6px 16px; border-radius:100px; border:1px solid var(--border); background:var(--surface); color:var(--muted); cursor:pointer; transition:all .15s; }
+    .gcat-tab:hover { border-color:#bbb; color:var(--text); }
+    .gcat-tab.active { background:var(--text); color:#fff; border-color:var(--text); }
+    .gcat-panel { display:none; }
+    .gcat-panel.visible { display:block; }
+
+    /* ═══ GRAPHIC CARDS ═══ */
+    .ggrid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-bottom:2rem; }
+    .gcard { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:transform .18s,box-shadow .18s; }
+    .gcard:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,.07); }
+    .gcard.wide { grid-column:span 2; }
+    .img-thumb { position:relative; width:100%; padding-bottom:100%; background:#eeece7; overflow:hidden; }
+    .img-thumb img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; cursor:zoom-in; }
+    .img-fallback { display:none; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; gap:8px; background:#eeece7; }
+    .img-thumb.img-missing .img-fallback { display:flex; }
+    .img-fallback .pi { font-size:22px; opacity:.35; }
+    .img-fallback p { font-size:11px; color:var(--faint); font-family:monospace; }
+
+    /* ═══ LIGHTBOX ═══ */
+    .lightbox { position:fixed; inset:0; background:rgba(20,19,17,.92); display:none; align-items:center; justify-content:center; z-index:1000; padding:2rem; cursor:zoom-out; }
+    .lightbox.visible { display:flex; }
+    .lightbox img { max-width:100%; max-height:100%; border-radius:6px; box-shadow:0 20px 60px rgba(0,0,0,.4); }
+
+    /* ═══ EXPERIENCE CARD ═══ */
+    .exp-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.75rem; }
+    .exp-head { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:1.1rem; padding-bottom:1.1rem; border-bottom:1px solid var(--border); }
+    .exp-role { font-size:19px; font-weight:500; color:var(--text); margin-bottom:3px; }
+    .exp-company { font-size:14px; color:var(--muted); }
+    .exp-date { font-size:12px; letter-spacing:.05em; text-transform:uppercase; color:var(--faint); white-space:nowrap; }
+    .exp-list { list-style:none; display:flex; flex-direction:column; gap:.65rem; }
+    .exp-list li { position:relative; padding-left:1.1rem; font-size:14.5px; color:var(--muted); line-height:1.6; }
+    .exp-list li::before { content:''; position:absolute; left:0; top:.55em; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">bettercallsmyt</span>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-label">Video Editor &amp; Graphic Designer — Delhi, India</p>
+  <h1>Editing that makes<br><span>people watch twice.</span></h1>
+  <p class="hero-desc">Self-taught editor and designer working across cinematic edits, short-form reels, colour grading, and poster design. From brief to final export.</p>
+  <div class="hero-tags">
+    <span class="tag">Adobe Premiere Pro</span>
+    <span class="tag">After Effects</span>
+    <span class="tag">Photoshop</span>
+    <span class="tag">Short-form Reels</span>
+    <span class="tag">Cinematic Edits</span>
+    <span class="tag">Colour Grading</span>
+    <span class="tag">Poster Design</span>
+  </div>
+  <a href="#work" class="hero-cta">
+    View my work
+    <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+</div>
+
+<hr />
+
+<!-- WORK -->
+<div class="work-section" id="work">
+  <p class="section-label">Selected Work</p>
+
+  <div class="discipline-switch">
+    <button class="discipline-btn active" onclick="showDiscipline('video',this)">Video Editing</button>
+    <span class="discipline-sep">/</span>
+    <button class="discipline-btn" onclick="showDiscipline('graphic',this)">Graphic Design</button>
+  </div>
+
+  <div class="discipline-panel visible" id="discipline-video">
+
+  <div class="cat-tabs">
+    <button class="cat-tab active" onclick="showCat('all',this)">All</button>
+    <button class="cat-tab" onclick="showCat('realestate',this)">Real Estate</button>
+    <button class="cat-tab" onclick="showCat('shortform',this)">Short-form Reels</button>
+    <button class="cat-tab" onclick="showCat('motivational',this)">Motivational</button>
+    <button class="cat-tab" onclick="showCat('colorgrade',this)">Colour Grading</button>
+    <button class="cat-tab" onclick="showCat('ae',this)">After Effects</button>
+    <button class="cat-tab" onclick="showCat('timeline',this)">Timelines</button>
+  </div>
+
+  <!-- ═══════════════ ALL ═══════════════ -->
+  <div class="cat-panel visible" id="cat-all">
+    <div class="grid">
+
+      <!-- Real Estate 04 — flagship, featured first -->
+      <div class="card wide">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/WPwRufU4ZBs" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Real Estate · Client Work</p>
+          <p class="cb-title">Real Estate Edit — 04</p>
+          <p class="cb-desc">Client property edit — the strongest piece from the internship series at Cresigns Studio.</p>
+        </div>
+      </div>
+
+      <!-- Best motivational -->
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/riYrr2DcqEY" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">Motivational Edit</p>
+          <p class="cb-desc">Pacing, music sync, and emotional build. One of the best quality pieces.</p>
+        </div>
+      </div>
+
+      <!-- Podcast reel -->
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/Mtt7UHVz_kk" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form · Podcast</p>
+          <p class="cb-title">Podcast Reel</p>
+          <p class="cb-desc">Studio podcast clip — dynamic editing and pacing for a talking-head format.</p>
+        </div>
+      </div>
+
+      <!-- Short-form client work -->
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/8wWBPWGB7CU" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form · Client Work</p>
+          <p class="cb-title">Client Reel</p>
+          <p class="cb-desc">Music-based short-form edit produced for a client.</p>
+        </div>
+      </div>
+
+      <!-- Metamorphosis client reel -->
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/UDkYzdiBQFY" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form · Client Work</p>
+          <p class="cb-title">Metamorphosis — Book Reel</p>
+          <p class="cb-desc">Client explainer reel — Kafka's Metamorphosis in short-form format.</p>
+        </div>
+      </div>
+
+      <!-- Real Estate 01 -->
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/gsWT2yxxgQM" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Real Estate · Client Work</p>
+          <p class="cb-title">Real Estate Edit — 01</p>
+          <p class="cb-desc">Property edit made during the internship at Cresigns Studio.</p>
+        </div>
+      </div>
+
+      <!-- Color grading -->
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/XVjEiMo1dYU" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Colour Grading</p>
+          <p class="cb-title">Colour Grade Demo</p>
+          <p class="cb-desc">Raw to graded — line wipe transition with masking technique.</p>
+        </div>
+      </div>
+
+      <!-- After Effects -->
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/rvwz3L-l1TE" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">After Effects · VFX</p>
+          <p class="cb-title">VFX / Motion Edit</p>
+          <p class="cb-desc">Camera movement, logo masking, light VFX in After Effects.</p>
+        </div>
+      </div>
+
+      <!-- Music edit -->
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/XsGMFunxb78" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Music Edit</p>
+          <p class="cb-title">Music Based Edit</p>
+          <p class="cb-desc">Edit built around the track — rhythm, cuts, and feel.</p>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/xLbuiTQBH1g" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Process · Premiere Pro</p>
+          <p class="cb-title">Editing Timeline</p>
+          <p class="cb-desc">Raw Premiere Pro timeline — layering, structure, and workflow.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ REAL ESTATE ═══════════════ -->
+  <div class="cat-panel" id="cat-realestate">
+    <div class="cat-header">
+      <span class="cat-title">Real Estate</span>
+      <span class="cat-desc">Client property edits made during the internship at Cresigns Studio</span>
+    </div>
+    <div class="grid grid-4col">
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/gsWT2yxxgQM" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Real Estate · Client Work</p>
+          <p class="cb-title">Real Estate Edit — 01</p>
+          <p class="cb-desc">Property walkthrough edit made during the internship at Cresigns Studio.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/J75nnicXmoo" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Real Estate · Client Work</p>
+          <p class="cb-title">Real Estate Edit — 02</p>
+          <p class="cb-desc">Real estate promo edit — pacing and transitions for a property listing.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/XMPNGGowm8c" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Real Estate · Client Work</p>
+          <p class="cb-title">Real Estate Edit — 03</p>
+          <p class="cb-desc">Client edit — colour grading and sound design for a property reel.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/WPwRufU4ZBs" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Real Estate · Client Work</p>
+          <p class="cb-title">Real Estate Edit — 04</p>
+          <p class="cb-desc">The strongest piece from the series, made at Cresigns Studio.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/9KGyzuPcbr8" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Real Estate · Client Work</p>
+          <p class="cb-title">Real Estate Edit — 05</p>
+          <p class="cb-desc">Promo edit for a client property.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/p7UEW5trWLo" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Real Estate · Client Work</p>
+          <p class="cb-title">Real Estate Edit — 06</p>
+          <p class="cb-desc">Property walkthrough edit with music sync.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/HipNFBGCRZg" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Real Estate · Client Work</p>
+          <p class="cb-title">Real Estate Edit — 07</p>
+          <p class="cb-desc">Client edit made during the Cresigns Studio internship.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ MOTIVATIONAL ═══════════════ -->
+  <div class="cat-panel" id="cat-motivational">
+    <div class="cat-header">
+      <span class="cat-title">Motivational Edits</span>
+      <span class="cat-desc">Film-clip edits built around emotion, pacing, and music sync</span>
+    </div>
+    <div class="grid">
+
+      <div class="card wide">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/riYrr2DcqEY" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">Motivational Edit</p>
+          <p class="cb-desc">High quality edit — pacing, music sync, emotional build.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/G828Fo-NAPI" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">Kanye West Edit</p>
+          <p class="cb-desc">Motivational edit.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/42EqzD8ahBc" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">Messi Edit</p>
+          <p class="cb-desc">Cinematic motivational edit.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/Pz94ax6L7V0" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">The Pursuit of Happyness</p>
+          <p class="cb-desc">Motivational edit from the film.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/eTSsGM4BnVM" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit · 10s</p>
+          <p class="cb-title">Whiplash Edit</p>
+          <p class="cb-desc">10 second motivational edit with a quote.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/es4In4o76oE" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">The Social Network Edit</p>
+          <p class="cb-desc">Cinematic motivational edit.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/18n_8mK64GU" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">Wake Up Edit</p>
+          <p class="cb-desc">Put down your phone — your dreams are slipping.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/A9vcGN7wZr4" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Motivational Edit</p>
+          <p class="cb-title">Motivational Edit</p>
+          <p class="cb-desc">Cinematic motivational edit.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ SHORT FORM ═══════════════ -->
+  <div class="cat-panel" id="cat-shortform">
+    <div class="cat-header">
+      <span class="cat-title">Short-form Reels</span>
+      <span class="cat-desc">Vertical content for Instagram and YouTube Shorts — hooks, transitions, trends</span>
+    </div>
+    <div class="grid grid-4col">
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/8wWBPWGB7CU" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form · Client Work</p>
+          <p class="cb-title">Client Reel</p>
+          <p class="cb-desc">Music-based edit produced for a client.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/hVOQgi5v2Pw" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form · Trending</p>
+          <p class="cb-title">Trending Reel</p>
+          <p class="cb-desc">Music-based trending reel format.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/JvDVDJSOzIw" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form · Motivational</p>
+          <p class="cb-title">Kendrick Short</p>
+          <p class="cb-desc">Motivational short-form edit. Strong editing, lower source quality.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/5AeD7vj1JbY" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form · Motivational</p>
+          <p class="cb-title">Kanye Short</p>
+          <p class="cb-desc">Short-form motivational edit.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/UDkYzdiBQFY" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form · Client Work</p>
+          <p class="cb-title">Metamorphosis — Book Reel</p>
+          <p class="cb-desc">Client explainer reel — Kafka's Metamorphosis explained in short-form format.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/Mtt7UHVz_kk" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form · Podcast</p>
+          <p class="cb-title">Podcast Reel</p>
+          <p class="cb-desc">Studio podcast clip — dynamic editing and pacing for a talking-head format.</p>
+        </div>
+      </div>
+
+      <!-- Placeholder for upcoming short -->
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/hnL1Z27uPPU" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Short-form</p>
+          <p class="cb-title">New Short</p>
+          <p class="cb-desc">Short form Motivational Edit</p>
+        </div>
+      </div>
+
+      <!-- Music Based Edit — moved here, at the end -->
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/XsGMFunxb78" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Music Edit</p>
+          <p class="cb-title">Music Based Edit</p>
+          <p class="cb-desc">Edit built around the track — rhythm, cuts, and feel.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ MOTIVATIONAL ═══════════════ -->
+  <div class="cat-panel" id="cat-colorgrade">
+    <div class="cat-header">
+      <span class="cat-title">Colour Grading</span>
+      <span class="cat-desc">Raw to graded — masking technique, line wipe transitions, before/after demos</span>
+    </div>
+    <div class="grid">
+      <div class="set">
+        <p class="set-label">Colour Grade Demo Series — 3 pieces</p>
+        <div class="set-grid">
+
+          <div class="set-item">
+            <div class="thumb" style="border-radius:8px; overflow:hidden;">
+              <iframe src="https://www.youtube.com/embed/XVjEiMo1dYU" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <div class="cb" style="padding:.75rem .1rem 0;">
+              <p class="cb-type">Colour Grade</p>
+              <p class="cb-title">Grade Demo 01</p>
+              <p class="cb-desc">Line wipe + masking. Raw to final.</p>
+            </div>
+          </div>
+
+          <div class="set-item">
+            <div class="thumb" style="border-radius:8px; overflow:hidden;">
+              <iframe src="https://www.youtube.com/embed/Tg9fCT3MsY8" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <div class="cb" style="padding:.75rem .1rem 0;">
+              <p class="cb-type">Colour Grade</p>
+              <p class="cb-title">Grade Demo 02</p>
+              <p class="cb-desc">Colour transformation — raw footage to graded output.</p>
+            </div>
+          </div>
+
+          <div class="set-item">
+            <div class="thumb" style="border-radius:8px; overflow:hidden;">
+              <iframe src="https://www.youtube.com/embed/fS2Fd8WZVYI" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <div class="cb" style="padding:.75rem .1rem 0;">
+              <p class="cb-type">Colour Grade</p>
+              <p class="cb-title">Grade Demo 03</p>
+              <p class="cb-desc">Colour transformation — raw footage to graded output.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ AFTER EFFECTS ═══════════════ -->
+  <div class="cat-panel" id="cat-ae">
+    <div class="cat-header">
+      <span class="cat-title">After Effects</span>
+      <span class="cat-desc">Light VFX, camera movement, logo masking — early AE work</span>
+    </div>
+    <div class="grid grid-2col">
+
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/rvwz3L-l1TE" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">After Effects · VFX</p>
+          <p class="cb-title">VFX / Motion Edit</p>
+          <p class="cb-desc">Camera movement, logo masking, light VFX. Line transition revealing colour grade.</p>
+        </div>
+      </div>
+
+      <!-- Placeholder for second AE video -->
+      <div class="card">
+        <div class="thumb vertical">
+          <iframe src="https://www.youtube.com/embed/KZgBtmG95kA" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">After Effects</p>
+          <p class="cb-title">AE Edit</p>
+          <p class="cb-desc">Uploading soon — replace placeholder with your YouTube ID.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ TIMELINES ═══════════════ -->
+  <div class="cat-panel" id="cat-timeline">
+    <div class="cat-header">
+      <span class="cat-title">Editing Timelines</span>
+      <span class="cat-desc">Premiere Pro screen recordings — proof of process, workflow, and structure</span>
+    </div>
+    <div class="grid grid-2col">
+
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/xLbuiTQBH1g" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Process · Premiere Pro</p>
+          <p class="cb-title">Timeline Recording 01</p>
+          <p class="cb-desc">Full Premiere Pro timeline — track layering, clip structure, and editing workflow.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/svs8akzGvho" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Process · Premiere Pro</p>
+          <p class="cb-title">Timeline Recording 02</p>
+          <p class="cb-desc">Premiere Pro timeline walkthrough.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/8rPr7Og6eIY" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Process · Premiere Pro</p>
+          <p class="cb-title">Timeline Recording 03</p>
+          <p class="cb-desc">Premiere Pro timeline walkthrough.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb">
+          <iframe src="https://www.youtube.com/embed/tK9NWKFNvXE" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="cb">
+          <p class="cb-type">Process · Premiere Pro</p>
+          <p class="cb-title">Timeline Recording 04</p>
+          <p class="cb-desc">Premiere Pro timeline walkthrough.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  </div><!-- end discipline-video -->
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- GRAPHIC DESIGN — add images by uploading to  -->
+  <!-- an "images" folder in your repo with these   -->
+  <!-- exact filenames. No HTML editing needed —    -->
+  <!-- once the file exists it shows automatically. -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="discipline-panel" id="discipline-graphic">
+
+    <div class="gcat-tabs">
+      <button class="gcat-tab active" onclick="showGCat('gall',this)">All</button>
+      <button class="gcat-tab" onclick="showGCat('realestate',this)">Real Estate</button>
+      <button class="gcat-tab" onclick="showGCat('posters',this)">Posters &amp; Key Art</button>
+      <button class="gcat-tab" onclick="showGCat('productads',this)">Product Ads</button>
+      <button class="gcat-tab" onclick="showGCat('landmarks',this)">Delhi Landmarks</button>
+    </div>
+
+    <!-- ═══ ALL ═══ -->
+    <div class="gcat-panel visible" id="gcat-gall">
+      <div class="ggrid">
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/rockstar-poster.jpg" alt="Rockstar brutalist movie poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/rockstar-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Rockstar — Brutalist Poster</p>
+            <p class="cb-desc">Bollywood film poster with a brutalist, WOLF-inspired aesthetic.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/cresign-poster.jpg" alt="Cresigns Studio poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/cresign-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Cresigns Studio — Poster</p>
+            <p class="cb-desc">Poster design made for Cresigns Studio.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/adidas-boots-poster.jpg" alt="Adidas boots product poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/adidas-boots-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Product Ad</p>
+            <p class="cb-title">Adidas — Boots Poster</p>
+            <p class="cb-desc">Football boot product poster design.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/into-the-wild-poster.jpg" alt="Into the Wild movie poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/into-the-wild-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Into the Wild — Movie Poster</p>
+            <p class="cb-desc">Typography, layer masking, and duotone grading.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/delhi-landmark-01.jpg" alt="Delhi landmark poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-01.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster</p>
+            <p class="cb-title">Delhi Landmark</p>
+            <p class="cb-desc">From the Delhi Landmarks heritage series.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/real-estate-poster-03.jpg" alt="Real estate poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/real-estate-poster-03.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Real Estate Poster</p>
+            <p class="cb-desc">Property marketing poster design.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/puma-neymar-poster.jpg" alt="Puma Neymar product poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/puma-neymar-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Product Ad</p>
+            <p class="cb-title">Puma × Neymar — Boot Poster</p>
+            <p class="cb-desc">Nike-style football boot poster, made for a friend.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/zebronics-thunder-pro.jpg" alt="Zebronics Thunder Pro ad" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/zebronics-thunder-pro.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Product Ad</p>
+            <p class="cb-title">Zebronics Thunder Pro</p>
+            <p class="cb-desc">Japanese-style product advertisement.</p>
+          </div>
+        </div>
+
+        <div class="gcard wide">
+          <div class="set-grid" style="grid-template-columns:repeat(4,1fr);">
+            <div class="img-thumb" style="border-radius:8px;">
+              <img src="images/delhi-landmark-01.jpg" alt="Delhi landmark poster 1" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+              <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-01.jpg</p></div>
+            </div>
+            <div class="img-thumb" style="border-radius:8px;">
+              <img src="images/delhi-landmark-02.jpg" alt="Delhi landmark poster 2" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+              <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-02.jpg</p></div>
+            </div>
+            <div class="img-thumb" style="border-radius:8px;">
+              <img src="images/delhi-landmark-03.jpg" alt="Delhi landmark poster 3" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+              <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-03.jpg</p></div>
+            </div>
+            <div class="img-thumb" style="border-radius:8px;">
+              <img src="images/delhi-landmark-04.jpg" alt="Delhi landmark poster 4" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+              <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-04.jpg</p></div>
+            </div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Series</p>
+            <p class="cb-title">Delhi Landmarks — Heritage Series</p>
+            <p class="cb-desc">Same poster design applied across 4 different Delhi landmarks, made for Instagram.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ REAL ESTATE ═══ -->
+    <div class="gcat-panel" id="gcat-realestate">
+      <div class="cat-header">
+        <span class="cat-title">Real Estate</span>
+        <span class="cat-desc">Poster and brand design for Cresigns Studio and property marketing</span>
+      </div>
+      <div class="ggrid">
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/cresign-poster.jpg" alt="Cresigns Studio poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/cresign-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Cresigns Studio — Poster</p>
+            <p class="cb-desc">Poster design made for Cresigns Studio.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/cresign-agency-poster.jpg" alt="Cresigns Studio agency poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/cresign-agency-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Cresigns Studio — Agency Poster</p>
+            <p class="cb-desc">Brand poster design made for Cresigns Studio.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/real-estate-poster-03.jpg" alt="Real estate poster 03" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/real-estate-poster-03.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Real Estate Poster 03</p>
+            <p class="cb-desc">Property marketing poster design.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/real-estate-poster-01.jpg" alt="Real estate poster 01" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/real-estate-poster-01.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Real Estate Poster 01</p>
+            <p class="cb-desc">Property marketing poster design.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/real-estate-poster-02.jpg" alt="Real estate poster 02" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/real-estate-poster-02.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Real Estate Poster 02</p>
+            <p class="cb-desc">Property marketing poster design.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ POSTERS & KEY ART ═══ -->
+    <div class="gcat-panel" id="gcat-posters">
+      <div class="cat-header">
+        <span class="cat-title">Posters &amp; Key Art</span>
+        <span class="cat-desc">Film poster design — typography, layer masking, duotone grading</span>
+      </div>
+      <div class="ggrid grid-2col">
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/into-the-wild-poster.jpg" alt="Into the Wild movie poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/into-the-wild-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Into the Wild — Movie Poster</p>
+            <p class="cb-desc">Typography, layer masking, and duotone grading.</p>
+          </div>
+        </div>
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/rockstar-poster.jpg" alt="Rockstar brutalist movie poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/rockstar-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Poster Design</p>
+            <p class="cb-title">Rockstar — Brutalist Poster</p>
+            <p class="cb-desc">Bollywood film poster with a brutalist, WOLF-inspired aesthetic.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PRODUCT ADS ═══ -->
+    <div class="gcat-panel" id="gcat-productads">
+      <div class="cat-header">
+        <span class="cat-title">Product Ads</span>
+        <span class="cat-desc">Product advertisement and brand poster design</span>
+      </div>
+      <div class="ggrid">
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/adidas-boots-poster.jpg" alt="Adidas boots product poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/adidas-boots-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Product Ad</p>
+            <p class="cb-title">Adidas — Boots Poster</p>
+            <p class="cb-desc">Football boot product poster design.</p>
+          </div>
+        </div>
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/puma-neymar-poster.jpg" alt="Puma Neymar product poster" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/puma-neymar-poster.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Product Ad</p>
+            <p class="cb-title">Puma × Neymar — Boot Poster</p>
+            <p class="cb-desc">Nike-style football boot poster, made for a friend.</p>
+          </div>
+        </div>
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/zebronics-thunder-pro.jpg" alt="Zebronics Thunder Pro ad" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/zebronics-thunder-pro.jpg</p></div>
+          </div>
+          <div class="cb">
+            <p class="cb-type">Product Ad</p>
+            <p class="cb-title">Zebronics Thunder Pro</p>
+            <p class="cb-desc">Japanese-style product advertisement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ DELHI LANDMARKS ═══ -->
+    <div class="gcat-panel" id="gcat-landmarks">
+      <div class="cat-header">
+        <span class="cat-title">Delhi Landmarks — Heritage Series</span>
+        <span class="cat-desc">Same poster design applied across 4 different Delhi landmarks, made for Instagram</span>
+      </div>
+      <div class="ggrid grid-4col">
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/delhi-landmark-01.jpg" alt="Delhi landmark poster 1" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-01.jpg</p></div>
+          </div>
+          <div class="cb"><p class="cb-type">Poster</p><p class="cb-title">Landmark 01</p></div>
+        </div>
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/delhi-landmark-02.jpg" alt="Delhi landmark poster 2" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-02.jpg</p></div>
+          </div>
+          <div class="cb"><p class="cb-type">Poster</p><p class="cb-title">Landmark 02</p></div>
+        </div>
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/delhi-landmark-03.jpg" alt="Delhi landmark poster 3" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-03.jpg</p></div>
+          </div>
+          <div class="cb"><p class="cb-type">Poster</p><p class="cb-title">Landmark 03</p></div>
+        </div>
+        <div class="gcard">
+          <div class="img-thumb">
+            <img src="images/delhi-landmark-04.jpg" alt="Delhi landmark poster 4" loading="lazy" onerror="this.parentElement.classList.add('img-missing')" onclick="if(this.naturalWidth) openLightbox(this.src)">
+            <div class="img-fallback"><div class="pi">🖼</div><p>images/delhi-landmark-04.jpg</p></div>
+          </div>
+          <div class="cb"><p class="cb-type">Poster</p><p class="cb-title">Landmark 04</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end discipline-graphic -->
+
+</div><!-- end work-section -->
+
+<hr />
+
+<!-- EXPERIENCE -->
+<div class="other-section" id="experience">
+  <p class="section-label">Experience</p>
+  <div class="exp-card">
+    <div class="exp-head">
+      <div>
+        <p class="exp-role">Video Editing Intern</p>
+        <p class="exp-company">Cresigns Studio · Delhi (On-site)</p>
+      </div>
+      <p class="exp-date">28 May – 8 July 2026</p>
+    </div>
+    <ul class="exp-list">
+      <li>Edited short-form reels, social clips, and promos for client brands using Adobe Premiere Pro and After Effects.</li>
+      <li>Worked across Adobe Creative Suite — Premiere Pro, After Effects, and Photoshop — for edits, motion graphics, and graphic assets.</li>
+      <li>Assisted with AI-powered video workflows for generative and product-style content.</li>
+      <li>Delivered client-ready work on real production timelines in a fast-paced studio environment.</li>
+    </ul>
+  </div>
+</div>
+
+<hr />
+
+<!-- ABOUT -->
+<div class="other-section" id="about">
+  <p class="section-label">About</p>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a self-taught video editor and graphic designer based in Delhi, with a background in creating motivational and cinematic edits — the kind that make people stop scrolling.</p>
+      <p>I got into editing through a genuine love of film and storytelling, and picked up graphic design alongside it — posters, product ads, and editorial layouts. Learning through doing rather than courses.</p>
+      <p>Currently open to on-site internships and editing roles in Delhi NCR. Comfortable working to a brief, taking feedback fast, and delivering clean work on time.</p>
+    </div>
+    <div class="facts">
+      <div class="fact"><p class="fact-l">Primary Tools</p><p class="fact-v">Adobe Premiere Pro · Photoshop</p></div>
+      <div class="fact"><p class="fact-l">Also use</p><p class="fact-v">After Effects · CapCut</p></div>
+      <div class="fact"><p class="fact-l">Specialities</p><p class="fact-v">Reels · Cinematic Edits · Colour Grading · Poster Design</p></div>
+      <div class="fact"><p class="fact-l">Available for</p><p class="fact-v">On-site Delhi NCR · Remote</p></div>
+      <div class="fact"><p class="fact-l">Based in</p><p class="fact-v">Delhi, India</p></div>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<!-- SKILLS -->
+<div class="other-section">
+  <p class="section-label">Skills</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <p class="skill-cat">Editing</p>
+      <div class="skill-list">
+        <span class="skill-item">Cut &amp; pacing</span>
+        <span class="skill-item">Colour correction</span>
+        <span class="skill-item">Sound design</span>
+        <span class="skill-item">Music sync</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <p class="skill-cat">Post-production</p>
+      <div class="skill-list">
+        <span class="skill-item">Subtitles &amp; captions</span>
+        <span class="skill-item">Light VFX (After Effects)</span>
+        <span class="skill-item">Logo masking</span>
+        <span class="skill-item">Export optimisation</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <p class="skill-cat">Formats</p>
+      <div class="skill-list">
+        <span class="skill-item">Short-form vertical (Reels)</span>
+        <span class="skill-item">Long-form vlog</span>
+        <span class="skill-item">Cinematic / motivational</span>
+        <span class="skill-item">Music-driven edits</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <p class="skill-cat">Workflow</p>
+      <div class="skill-list">
+        <span class="skill-item">Brief-to-delivery</span>
+        <span class="skill-item">Revision turnaround</span>
+        <span class="skill-item">Project organisation</span>
+        <span class="skill-item">Feedback integration</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <p class="skill-cat">Graphic Design</p>
+      <div class="skill-list">
+        <span class="skill-item">Poster &amp; key art design</span>
+        <span class="skill-item">Layer masking &amp; duotone grading</span>
+        <span class="skill-item">Typography &amp; layout</span>
+        <span class="skill-item">Product ad design</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<!-- CONTACT -->
+<div class="other-section" id="contact">
+  <div class="contact-inner">
+    <h2>Let's work together</h2>
+    <p>Open to on-site internships and editing roles in Delhi NCR. Available for freelance and remote work too.</p>
+    <div class="contact-links">
+      <a href="mailto:sumitkumar854468@gmail.com" class="btn primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Email me
+      </a>
+      <a href="https://instagram.com/bettercallsmyt" target="_blank" rel="noopener" class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        Instagram
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 bettercallsmyt · Delhi, India</p>
+</footer>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function showCat(cat, btn) {
+    document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('visible'));
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('cat-' + cat).classList.add('visible');
+    btn.classList.add('active');
+  }
+
+  function showDiscipline(which, btn) {
+    document.getElementById('discipline-video').classList.toggle('visible', which === 'video');
+    document.getElementById('discipline-graphic').classList.toggle('visible', which === 'graphic');
+    document.querySelectorAll('.discipline-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function showGCat(cat, btn) {
+    document.querySelectorAll('.gcat-panel').forEach(p => p.classList.remove('visible'));
+    document.querySelectorAll('.gcat-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('gcat-' + cat).classList.add('visible');
+    btn.classList.add('active');
+  }
+
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('visible');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('visible');
+  }
+</script>
+
+</body>
+</html>
